@@ -1,0 +1,20 @@
+# Ignore object files and other intermediate files
+*.o
+*.obj
+
+# Ignore executable files
+*.exe
+*.out
+*.a
+*.so
+*.dll
+*.dylib
+
+# Ignore debugging files
+*.gch
+*.gcda
+*.gcno
+*.gcov
+
+# Ignore CMake build directory (if using CMake)
+build/
