@@ -1,7 +1,7 @@
 # Ignore object files and other intermediate files
 *.o
 *.obj
-.jar 
+*.jar 
 
 # Ignore executable files
 *.exe
