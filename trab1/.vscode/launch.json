@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/caefleury/Documents/unb/OAC-TRABALHOS/trab2",
-      "program": "/home/caefleury/Documents/unb/OAC-TRABALHOS/trab2/build/Debug/outDebug",
+      "cwd": "/home/caefleury/Documents/unb/OAC-TRABALHOS/trab1",
+      "program": "/home/caefleury/Documents/unb/OAC-TRABALHOS/trab1/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

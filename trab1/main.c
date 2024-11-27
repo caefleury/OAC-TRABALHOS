@@ -17,7 +17,7 @@ uint32_t lbu(int reg, int kte) {
 int32_t lw(int reg, int kte) {
     int32_t value = 0;
     for (int i = 0; i < 4; i++) {
-        value |= ((uint32_t)(mem[reg + kte + i] & 0xFF) << (i * 8));
+        value |= (uint32_t)((mem[reg + kte + i] & 0xFF) << (i * 8));
     }
     return value;
 }
