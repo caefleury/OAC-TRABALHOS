@@ -43,6 +43,9 @@ O simulador foi testado usando o arquivo `test.asm` fornecido, que inclui vário
 - Instruções de desvio e salto
 - Operações com imediatos superiores
 
+### Exemplo de Execução
+![Exemplo de execução do simulador](sim_ex.png)
+
 O simulador executa com sucesso essas instruções e mantém o estado correto do processador, incluindo:
 - Atualizações do Contador de Programa (PC)
 - Modificações no banco de registradores
