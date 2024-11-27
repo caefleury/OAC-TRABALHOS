@@ -2,7 +2,6 @@
 #include <iomanip>
 #include "acesso_memoria.h"
 
-// Maps for instruction strings
 string iformat_str[8] = {
     "RType", "IType", "SType", "SBType", "UType", "UJType", "NullFormat", "NOPType"
 };
@@ -106,7 +105,7 @@ INSTRUCTIONS get_instr_code(uint32_t opcode, uint32_t func3, uint32_t func7) {
         case ECALL:
             return I_ecall;
     }
-    return I_nop;  // Default case
+    return I_nop;
 }
 
 FORMATS get_i_format(uint32_t opcode, uint32_t func3, uint32_t func7) {
@@ -123,11 +122,8 @@ FORMATS get_i_format(uint32_t opcode, uint32_t func3, uint32_t func7) {
 }
 
 void fetch(instruction_context_st& ic) {
-    // Read instruction from memory at PC
     ic.ir = lw(pc, 0);
     ic.pc = pc;
-    
-    // Update PC to next instruction
     pc += 4;
 }
 
@@ -173,7 +169,6 @@ void execute(instruction_context_st& ic) {
             breg[ic.rd] = ((uint32_t)breg[ic.rs1] < (uint32_t)breg[ic.rs2]) ? 1 : 0;
             break;
             
-        // I-type instructions
         case I_addi:
             breg[ic.rd] = breg[ic.rs1] + ic.imm12_i;
             break;
@@ -202,7 +197,6 @@ void execute(instruction_context_st& ic) {
             breg[ic.rd] = ((uint32_t)breg[ic.rs1] < (uint32_t)ic.imm12_i) ? 1 : 0;
             break;
             
-        // Load instructions
         case I_lb:
             breg[ic.rd] = lb(breg[ic.rs1], ic.imm12_i);
             break;
@@ -213,7 +207,6 @@ void execute(instruction_context_st& ic) {
             breg[ic.rd] = lbu(breg[ic.rs1], ic.imm12_i);
             break;
             
-        // Store instructions
         case I_sb:
             sb(breg[ic.rs1], ic.imm12_s, breg[ic.rs2]);
             break;
@@ -221,7 +214,6 @@ void execute(instruction_context_st& ic) {
             sw(breg[ic.rs1], ic.imm12_s, breg[ic.rs2]);
             break;
             
-        // Branch instructions
         case I_beq:
             if (breg[ic.rs1] == breg[ic.rs2]) pc = ic.pc + ic.imm13;
             break;
@@ -241,7 +233,6 @@ void execute(instruction_context_st& ic) {
             if ((uint32_t)breg[ic.rs1] >= (uint32_t)breg[ic.rs2]) pc = ic.pc + ic.imm13;
             break;
             
-        // Jump instructions
         case I_jal:
             breg[ic.rd] = pc;
             pc = ic.pc + ic.imm21;
@@ -251,7 +242,6 @@ void execute(instruction_context_st& ic) {
             pc = (breg[ic.rs1] + ic.imm12_i) & ~1;
             break;
             
-        // Upper immediate instructions
         case I_lui:
             breg[ic.rd] = ic.imm20_u << 12;
             break;
@@ -260,7 +250,6 @@ void execute(instruction_context_st& ic) {
             break;
             
         case I_ecall:
-            // Handle system call
             exit(0);
             break;
             

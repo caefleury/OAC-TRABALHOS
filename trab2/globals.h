@@ -1,10 +1,3 @@
-//
-//  globals.h
-//  RV32I
-//
-//
-//
-
 #ifndef __GLOBALS_H__
 #define __GLOBALS_H__
 
@@ -19,12 +12,12 @@ using namespace std;
 #define set_field(word, index, mask, value) (word & ~(mask << index)) | (value << index)
 
 enum OPCODES {
-    LUI = 0x37,		AUIPC = 0x17,		// atribui 20 msbits
-    ILType = 0x03,						// Load type
-    BType = 0x63,						// branch condicional
-    JAL = 0x6F,		JALR = 0x67,		// jumps
-    StoreType = 0x23,					// store
-    ILAType = 0x13,						// logico-aritmeticas com imediato
+    LUI = 0x37,		AUIPC = 0x17,
+    ILType = 0x03,
+    BType = 0x63,
+    JAL = 0x6F,		JALR = 0x67,
+    StoreType = 0x23,
+    ILAType = 0x13,
     RegType = 0x33,
     ECALL = 0x73
 };
@@ -71,68 +64,38 @@ enum REGISTERS {
 
 extern string reg_str[];
 
-// Global variables (defined in globals.h as extern)
-extern uint32_t pc;      // Program Counter
-extern uint32_t ri;      // Instruction Register
-extern uint32_t sp;      // Stack Pointer
-extern uint32_t gp;      // Global Pointer
-extern int32_t breg[32]; // Bank of 32 registers
+extern uint32_t pc;
+extern uint32_t ri;
+extern uint32_t sp;
+extern uint32_t gp;
+extern int32_t breg[32];
 
-// Decode stage globals
 extern uint32_t opcode, rs2, rs1, rd;
 extern uint32_t shamt, funct3, funct7;
 extern int32_t imm12_i, imm12_s, imm13, imm20_u, imm21;
 
-// Function to initialize registers
 void init_registers();
 
-//
-//	Memory
-//
 enum { MEM_SIZE = 4096 };
 enum { DATA_SEGMENT_START = 0x2000 };
 
-//
-// Identificacao de tipo de dado
-//
 enum DATA_TYPE {
      BYTE=4, INTEGER=1
 };
 
-//
-// Word size: 2ˆ(size) em bytes
-//
 enum WORD_SIZE_E {
     BYTE_SIZE = 0, HALF_SIZE = 1, WORD_SIZE = 2, DOUBLE_SIZE = 3
 };
 
 const WORD_SIZE_E WSIZE = WORD_SIZE;
 
-extern
-int32_t breg[32];
+extern int32_t breg[32];
 
-extern
-uint32_t pc,						// contador de programa
-         ri,						// registrador de intrucao
-         sp,						// stack pointe4r
-         gp;						// global pointer
+extern uint32_t pc, ri, sp, gp;
 
-extern
-int32_t		imm12_i,				// constante 12 bits
-            imm12_s,				// constante 12 bits
-            imm13,					// constante 13 bits
-            imm20_u,				// constante 20 bis mais significativos
-            imm21;					// constante 21 bits
+extern int32_t imm12_i, imm12_s, imm13, imm20_u, imm21;
 
-extern
-uint32_t	opcode,					// codigo da operacao
-            rs1,					// indice registrador rs
-            rs2,					// indice registrador rt
-            rd,						// indice registrador rd
-            shamt,					// deslocamento
-            funct3,					// campos auxiliares
-            funct7;					// constante instrucao tipo J
-
+extern uint32_t opcode, rs1, rs2, rd, shamt, funct3, funct7;
 
 struct instruction_context_st {
     uint32_t ir, pc;
@@ -145,10 +108,6 @@ struct instruction_context_st {
 extern instruction_context_st instr_info;
 
 extern string instr_str[39];
-
-//
-// Funcoes definidas em riscv.cpp
-//
 
 void init();
 void fetch (instruction_context_st& ic);

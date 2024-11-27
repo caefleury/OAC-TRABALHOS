@@ -5,24 +5,18 @@
 #include "globals.h"
 #include "acesso_memoria.h"
 
-// Global variables (defined in globals.h as extern)
-extern uint32_t pc;      // Program Counter
-extern uint32_t ri;      // Instruction Register
-extern uint32_t sp;      // Stack Pointer
-extern uint32_t gp;      // Global Pointer
+extern uint32_t pc;
+extern uint32_t ri;
+extern uint32_t sp;
+extern uint32_t gp;
 extern instruction_context_st instr_info;
 
-// Function declarations
 void print_menu();
 
 int main() {
-    // Initialize registers
     init_registers();
-
-    // Initialize other components
     init();
 
-    // Load program and data into memory
     if (load_mem("code.bin", 0) != 0) {
         std::cerr << "Erro ao carregar code.bin" << std::endl;
         return 1;

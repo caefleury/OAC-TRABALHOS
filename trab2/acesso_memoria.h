@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 
-// Function declarations for memory access functions
 int32_t lb(int reg, int kte);
 uint32_t lbu(int reg, int kte);
 int32_t lw(int reg, int kte);

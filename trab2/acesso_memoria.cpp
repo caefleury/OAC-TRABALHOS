@@ -44,7 +44,6 @@ void sw(int reg, int kte, int32_t word) {
     }
 }
 
-// Function to load binary file into memory
 int load_mem(const char* filename, int start) {
     FILE* fp = std::fopen(filename, "rb");
     if (!fp) return -1;

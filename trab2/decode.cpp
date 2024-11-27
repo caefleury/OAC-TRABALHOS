@@ -16,15 +16,14 @@ void decode (instruction_context_st & ic) {
     imm13 = set_bit(imm13, 11, imm12_s&1);
     imm13 = imm13 & ~1;
     imm20_u = ri & (~0xFFF);
-    // mais aborrecido...
-    imm21 = (int32_t)ri >> 11;			// estende sinal
-    tmp = get_field(ri, 12, 0xFF);		// le campo 19:12
-    imm21 = set_field(imm21, 12, 0xFF, tmp);	// escreve campo em imm21
-    tmp = get_bit(ri, 20);				// le o bit 11 em ri(20)
-    imm21 = set_bit(imm21, 11, tmp);			// posiciona bit 11
+    imm21 = (int32_t)ri >> 11;
+    tmp = get_field(ri, 12, 0xFF);
+    imm21 = set_field(imm21, 12, 0xFF, tmp);
+    tmp = get_bit(ri, 20);
+    imm21 = set_bit(imm21, 11, tmp);
     tmp = get_field(ri, 21, 0x3FF);
     imm21 = set_field(imm21, 1, 0x3FF, tmp);
-    imm21 = imm21 & ~1;					// zero bit 0
+    imm21 = imm21 & ~1;
     ic.ins_code = get_instr_code(opcode, funct3, funct7);
     ic.ins_format = get_i_format(opcode, funct3, funct7);
     ic.rs1 = (REGISTERS)rs1;
