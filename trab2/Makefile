@@ -35,12 +35,4 @@ clean:
 # Rebuild everything
 rebuild: clean all
 
-# Help target
-help:
-	@echo "Available targets:"
-	@echo "  make all     - Build the executable (default)"
-	@echo "  make clean   - Remove object files and executable"
-	@echo "  make rebuild - Clean and rebuild everything"
-	@echo "  make help    - Show this help message"
 
-.PHONY: all clean rebuild help
