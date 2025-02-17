@@ -47,19 +47,21 @@ architecture behavioral of riscv_processor is
         );
     end component;
     
-    component memoria is
-        generic (
-            WSIZE     : natural := 32;
-            ADDR_SIZE : natural := 14
-        );
+    component memoria_instrucoes is
         port (
-            clk     : in  std_logic;
-            wren    : in  std_logic;
-            en      : in  std_logic;
-            byte_en : in  std_logic_vector(3 downto 0);
-            addr    : in  std_logic_vector(ADDR_SIZE-1 downto 0);
-            datain  : in  std_logic_vector(WSIZE-1 downto 0);
-            dataout : out std_logic_vector(WSIZE-1 downto 0)
+            addr : in  std_logic_vector(ADDR_WIDTH-1 downto 0);
+            data : out std_logic_vector(DATA_WIDTH-1 downto 0)
+        );
+    end component;
+
+    component memoria_dados is
+        port (
+            clk      : in  std_logic;
+            addr     : in  std_logic_vector(ADDR_WIDTH-1 downto 0);
+            write_en : in  std_logic;
+            byte_en  : in  std_logic;  -- '1' for byte operations, '0' for word
+            data_in  : in  std_logic_vector(DATA_WIDTH-1 downto 0);
+            data_out : out std_logic_vector(DATA_WIDTH-1 downto 0)
         );
     end component;
     
@@ -82,6 +84,25 @@ architecture behavioral of riscv_processor is
             sel     : in  std_logic
         );
     end component;
+
+    component somador is
+        generic (WSIZE : natural := 32);
+        port (
+            entrada_a : in  std_logic_vector(WSIZE-1 downto 0);
+            entrada_b : in  std_logic_vector(WSIZE-1 downto 0);
+            saida    : out std_logic_vector(WSIZE-1 downto 0)
+        );
+    end component;
+
+    component mux_2 is
+        generic (WSIZE : natural := 32);
+        port (
+            sel       : in  std_logic;
+            entrada_0 : in  std_logic_vector(WSIZE-1 downto 0);
+            entrada_1 : in  std_logic_vector(WSIZE-1 downto 0);
+            saida     : out std_logic_vector(WSIZE-1 downto 0)
+        );
+    end component;
     
     -- Internal signals
     signal pc_current, pc_next : std_logic_vector(WSIZE-1 downto 0);
@@ -92,10 +113,28 @@ architecture behavioral of riscv_processor is
     signal mem_read_data : std_logic_vector(WSIZE-1 downto 0);
     signal immediate : std_logic_vector(WSIZE-1 downto 0);
     
+    -- Adder signals
+    signal pc_plus_4 : std_logic_vector(WSIZE-1 downto 0);
+    signal pc_plus_imm : std_logic_vector(WSIZE-1 downto 0);
+    signal addr_result : std_logic_vector(WSIZE-1 downto 0);
+    
+    -- MUX signals
+    signal alu_src_mux_out : std_logic_vector(WSIZE-1 downto 0);
+    signal mem_to_reg_mux_out : std_logic_vector(WSIZE-1 downto 0);
+    signal branch_mux_out : std_logic_vector(WSIZE-1 downto 0);
+    signal auipc_mux_out : std_logic_vector(WSIZE-1 downto 0);
+    signal byte_word_mux_out : std_logic_vector(WSIZE-1 downto 0);
+    
+    -- Memory signals
+    signal mem_addr : std_logic_vector(ADDR_WIDTH-1 downto 0);
+    signal mem_byte_data : std_logic_vector(7 downto 0);
+    signal mem_word_data : std_logic_vector(WSIZE-1 downto 0);
+    
     -- Control signals
     signal branch, memRead, memtoReg, memWrite, aluSrc, regWrite, jump, auipc : std_logic;
     signal aluOp : std_logic_vector(1 downto 0);
     signal zero : std_logic;
+    signal is_byte_op : std_logic;  -- Indica operação de byte
     
 begin
     -- PC register
@@ -107,20 +146,80 @@ begin
             pc_current <= pc_next;
         end if;
     end process;
-    
-    -- Instruction memory (ROM)
-    inst_mem: memoria
-        generic map (WSIZE => WSIZE, ADDR_SIZE => 12)
+
+    -- PC Adder (PC+4 or PC+imm)
+    pc_adder: somador_pc
+        generic map (WSIZE => WSIZE)
         port map (
-            clk     => clk,
-            wren    => '0',  -- ROM
-            en      => '1',
-            byte_en => "1111",
-            addr    => pc_current(13 downto 2),
-            datain  => (others => '0'),
-            dataout => instruction
+            entrada => pc_current,
+            saida   => pc_next,
+            offset  => immediate,
+            sel     => branch and zero
+        );
+
+    -- Immediate Adder (for AUIPC and address calculations)
+    imm_adder: somador
+        generic map (WSIZE => WSIZE)
+        port map (
+            entrada_a => pc_current,
+            entrada_b => immediate,
+            saida    => addr_result
+        );
+
+    -- MUX for ALU source B selection
+    alu_src_mux: mux_2
+        generic map (WSIZE => WSIZE)
+        port map (
+            sel       => aluSrc,
+            entrada_0 => rs2_data,
+            entrada_1 => immediate,
+            saida     => alu_src_mux_out
+        );
+
+    -- MUX for memory to register writeback
+    mem_to_reg_mux: mux_2
+        generic map (WSIZE => WSIZE)
+        port map (
+            sel       => memtoReg,
+            entrada_0 => alu_result,
+            entrada_1 => mem_read_data,
+            saida     => mem_to_reg_mux_out
+        );
+
+    -- MUX for branch selection
+    branch_mux: mux_2
+        generic map (WSIZE => WSIZE)
+        port map (
+            sel       => branch and zero,
+            entrada_0 => pc_plus_4,
+            entrada_1 => pc_plus_imm,
+            saida     => branch_mux_out
+        );
+
+    -- MUX for AUIPC selection
+    auipc_mux: mux_2
+        generic map (WSIZE => WSIZE)
+        port map (
+            sel       => auipc,
+            entrada_0 => alu_result,
+            entrada_1 => addr_result,
+            saida     => auipc_mux_out
         );
     
+    -- Instruction memory (ROM)
+    inst_mem: memoria_instrucoes
+        port map (
+            addr => pc_current(13 downto 2),  -- Word addressing
+            data => instruction
+        );
+    
+    -- Immediate generator
+    imm_gen: gerador_imediato
+        port map (
+            instr => instruction,
+            imm   => immediate
+        );
+
     -- Control unit
     ctrl: controle
         port map (
@@ -167,13 +266,11 @@ begin
     data_mem: memoria
         generic map (WSIZE => WSIZE, ADDR_SIZE => 14)
         port map (
-            clk     => clk,
-            wren    => memWrite,
-            en      => '1',
-            byte_en => "1111",  -- For now, only word operations
-            addr    => alu_result(15 downto 2),
-            datain  => rs2_data,
-            dataout => mem_read_data
+            clk      => clk,
+            write_en => memWrite,
+            addr     => alu_result(15 downto 2),
+            data_in  => rs2_data,
+            data_out => mem_read_data
         );
     
     -- PC adder

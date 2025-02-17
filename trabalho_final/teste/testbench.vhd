@@ -3,10 +3,10 @@ use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use work.riscv_pkg.all;
 
-entity riscv_tb is
-end entity riscv_tb;
+entity testbench is
+end entity testbench;
 
-architecture tb_arch of riscv_tb is
+architecture tb_arch of testbench is
 
 component riscv is
     port (

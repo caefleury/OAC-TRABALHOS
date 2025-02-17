@@ -60,7 +60,7 @@ begin
 
     somar4comPC_i: somador port map (pcout, INC_PC, nextpc);
 
-    memoria_instrucoes_i: memInstr port map (endereco_memoria, instr);
+    memoria_instrucoes_i: memoria_instrucoes port map (endereco_memoria, instr);
 
     controle_i: controle port map (
         opcode,
@@ -105,7 +105,7 @@ begin
 
     branch <= (is_branch and ula_resultado(0)) or is_jump;
 
-    memoria_dados_i: data_mem port map (add_memoria_dados, clk, regB, mem_write, mem_read, memoria_dados_saida);
+    memoria_dados_i: memoria_dados port map (add_memoria_dados, clk, regB, mem_write, mem_read, memoria_dados_saida);
 
     memoria_reg_mux_i: mux2 port map (ula_resultado, memoria_dados_saida, mem_to_reg, regdata);
 

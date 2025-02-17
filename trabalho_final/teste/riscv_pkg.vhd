@@ -34,18 +34,18 @@ package riscv_pkg is
     constant MUX_SEL_AUIPC	: std_logic_vector(1 downto 0) := "00";
     constant MUX_SEL_LUI	: std_logic_vector(1 downto 0) := "01";
     constant MUX_SEL_REG1	: std_logic_vector(1 downto 0) := "10";
-    -- Aritméticas (ADD, ADDI, SUB)
+    -- Aritmï¿½ticas (ADD, ADDI, SUB)
     constant iADDSUB3	        : std_logic_vector(2 downto 0) := "000"; 
     -- Shifts (SLL, SRL, SRA)
     constant iSLL3		: std_logic_vector(2 downto 0) := "001"; 
     constant iSRLSRA3           : std_logic_vector(2 downto 0) := "101"; 
-    -- Compação (SLT, SLTU)
+    -- Compaï¿½ï¿½o (SLT, SLTU)
     constant iSLT3              : std_logic_vector(2 downto 0) := "010"; 
     constant iSLTU3             : std_logic_vector(2 downto 0) := "011"; 
     -- Branchs (BEQ, BNE)
     constant iBEQ3		: std_logic_vector(2 downto 0) := "000";
     constant iBNE3		: std_logic_vector(2 downto 0) := "001";
-    -- Memória (LW, SW)
+    -- Memï¿½ria (LW, SW)
     constant iLW3		: std_logic_vector(2 downto 0) := "000";
     constant iSW3		: std_logic_vector(2 downto 0) := "010";
 
@@ -96,20 +96,20 @@ package riscv_pkg is
         imm32: out std_logic_vector(WORD_SIZE-1 downto 0));
     end component;
 
-    component data_mem is
+    component memoria_dados is
         generic (
             SIZE : natural := WORD_SIZE;
             WADDR : natural := MEM_ADDR);
         port (
             address	: in std_logic_vector (WADDR - 1 downto 0);
-            clk	        : in std_logic;
+            clk	    : in std_logic;
             data	: in std_logic_vector (SIZE - 1 downto 0);
             wren	: in std_logic;
             mem_read    : in std_logic;
             q		: out std_logic_vector (SIZE - 1 downto 0));
     end component;
 
-    component memInstr is
+    component memoria_instrucoes is
         generic (
             SIZE : natural := WORD_SIZE;
             WADDR : natural := MEM_ADDR);

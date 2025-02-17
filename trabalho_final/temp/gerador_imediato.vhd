@@ -14,7 +14,7 @@ end genImm32;
 
 architecture geradorDeImediato of genImm32 is
 begin
-    -- esse process roda sempre que a instrução muda
+    -- esse processo roda sempre que a instrução muda
     process(instr)
         -- guarda os 7 bits do opcode pra ficar mais fácil de usar
         variable opcode : std_logic_vector(6 downto 0);

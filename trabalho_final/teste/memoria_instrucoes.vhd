@@ -4,16 +4,16 @@ use IEEE.numeric_std.all;
 use std.textio.all;
 use work.riscv_pkg.all;
 
-entity memInstr is
+entity memoria_instrucoes is
     generic (
         SIZE  : natural := WORD_SIZE;
         WADDR : natural := MEM_ADDR);
     port (
         address : in std_logic_vector (WADDR - 1 downto 0);
         q       : out std_logic_vector(SIZE - 1 downto 0));
-end entity memInstr;
+end entity memoria_instrucoes;
 
-architecture RTL of memInstr is
+architecture RTL of memoria_instrucoes is
     type rom_type is array (0 to (2**address'length) - 1) of std_logic_vector(q'range);
 
     impure function init_rom_hex return rom_type is
@@ -24,7 +24,7 @@ architecture RTL of memInstr is
         for i in 0 to (2**address'length) - 1 loop
             if (not endfile(text_file)) then
                 readline(text_file, text_line);
-                hread(text_line, rom_content(i));
+                rom_content(i) := std_logic_vector(to_unsigned(to_integer(unsigned'("X" & text_line.all)), SIZE));
             end if;
         end loop;
         return rom_content;
