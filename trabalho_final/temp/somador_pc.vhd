@@ -10,15 +10,18 @@ entity somador_pc is
         entrada : in  std_logic_vector(WSIZE-1 downto 0);
         saida   : out std_logic_vector(WSIZE-1 downto 0);
         offset  : in  std_logic_vector(WSIZE-1 downto 0);
-        sel     : in  std_logic  -- 0 for PC+4, 1 for PC+offset
+        sel     : in  std_logic;  -- 0 for PC+4, 1 for PC+offset
+        rst     : in  std_logic   -- Added reset signal
     );
 end somador_pc;
 
 architecture behavioral of somador_pc is
 begin
-    process(entrada, offset, sel)
+    process(entrada, offset, sel, rst)
     begin
-        if sel = '0' then
+        if rst = '1' then
+            saida <= (others => '0');
+        elsif sel = '0' then
             -- Normal PC increment by 4
             saida <= std_logic_vector(unsigned(entrada) + 4);
         else

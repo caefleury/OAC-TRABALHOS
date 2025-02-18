@@ -15,7 +15,7 @@ architecture tb of testbench is
         );
         port (
             clk        : in  std_logic;
-            rst        : in  std_logic;
+            rst        : in  std_logic;  
             debug_pc    : out std_logic_vector(31 downto 0);
             debug_inst  : out std_logic_vector(31 downto 0);
             debug_reg_write : out std_logic_vector(31 downto 0)
@@ -29,7 +29,7 @@ architecture tb of testbench is
     
     -- Testbench signals
     signal clk : std_logic := '1';
-    signal rst : std_logic := '1';
+    signal rst : std_logic := '1';  
     signal stop_clock : boolean := false;
     
     -- Debug signals
@@ -48,7 +48,7 @@ begin
         )
         port map (
             clk => clk,
-            rst => rst,
+            rst => rst,  
             debug_pc => debug_pc,
             debug_inst => debug_inst,
             debug_reg_write => debug_reg_write
@@ -69,17 +69,41 @@ begin
         -- Helper procedures
         procedure print_status(
             constant test_name : in string;
-            constant success : in boolean
+            constant success : in boolean;
+            constant actual_value : in std_logic_vector(31 downto 0);
+            constant expected_value : in std_logic_vector(31 downto 0)
         ) is
             variable l : line;
         begin
-            write(l, test_name & ": ");
+            write(l, test_name);
+            write(l, string'(": "));
             if success then
-                write(l, "PASS");
+                write(l, string'("PASS"));
             else
-                write(l, "FAIL");
+                write(l, string'("FAIL"));
+                write(l, string'(" - Expected: 0x"));
+                hwrite(l, expected_value);
+                write(l, string'(" Got: 0x"));
+                hwrite(l, actual_value);
                 test_status <= false;
             end if;
+            writeline(output, l);
+            
+            -- Print current PC and instruction for debugging
+            write(l, string'("Current PC: 0x"));
+            hwrite(l, debug_pc);
+            write(l, string'(" Instruction: 0x"));
+            hwrite(l, debug_inst);
+            writeline(output, l);
+            
+            -- If there's a register write, show it
+            if unsigned(debug_reg_write) /= 0 then
+                write(l, string'("Register write value: 0x"));
+                hwrite(l, debug_reg_write);
+                writeline(output, l);
+            end if;
+            
+            write(l, string'("--------------------------"));
             writeline(output, l);
         end procedure;
         
@@ -88,22 +112,26 @@ begin
             constant test_name : in string
         ) is
         begin
+            -- Check the current instruction first
+            print_status(test_name, debug_inst = expected_inst, debug_inst, expected_inst);
+            -- Then advance to next clock cycle
             wait until rising_edge(clk);
             wait for 1 ns; -- Allow for signal propagation
-            print_status(test_name, debug_inst = expected_inst);
         end procedure;
         
     begin
         -- Print test header
         report "Starting RISC-V Processor Tests";
         
-        -- Reset test
-        rst <= '1';
-        wait for PERIOD*2;
-        rst <= '0';
+        -- Assert reset for a few cycles
+        wait for PERIOD * 2;
+        rst <= '0';  
         
-        -- Test 1: Check if PC starts at 0 after reset
-        print_status("PC Reset Test", debug_pc = x"00000000");
+        -- Start testing instructions
+        wait for PERIOD;  -- Wait one cycle to let signals stabilize
+        
+        -- Test 1: Check if PC starts at 0
+        print_status("PC Initial Value Test", debug_pc = x"00000000", debug_pc, x"00000000");
         
         -- Test 2: Check first instruction (addi x2, x0, 5)
         check_instruction(x"00500113", "First Instruction Test");
@@ -135,12 +163,12 @@ begin
         -- Test 11: Check SLTI instruction
         check_instruction(x"0032a513", "SLTI Instruction Test");
 
-        -- Test 12: Check SB instruction
-        check_instruction(x"00408023", "Store Byte Instruction Test");
-
-        -- Test 13: Check LB instruction
-        check_instruction(x"00008283", "Load Byte Instruction Test");
+        -- Test 12: Check store word instruction
+        check_instruction(x"00402223", "Store Word Test");
         
+        -- Test 13: Check load word instruction
+        check_instruction(x"00008303", "Load Word Test");
+
         -- Test 14: Check ALU instruction (sub x2, x3, x4)
         check_instruction(x"40418133", "SUB Instruction Test");
         

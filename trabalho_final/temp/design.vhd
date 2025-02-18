@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.riscv_pkg.all;
 
 entity riscv_processor is
     generic (
@@ -8,11 +9,19 @@ entity riscv_processor is
     );
     port (
         clk        : in  std_logic;
-        rst        : in  std_logic;
+        rst        : in  std_logic;  -- Added reset signal
         -- Debug ports
         debug_pc    : out std_logic_vector(WSIZE-1 downto 0);
         debug_inst  : out std_logic_vector(WSIZE-1 downto 0);
-        debug_reg_write : out std_logic_vector(WSIZE-1 downto 0)
+        debug_reg_write : out std_logic_vector(WSIZE-1 downto 0);
+        -- Additional debug ports
+        debug_alu_result : out std_logic_vector(WSIZE-1 downto 0);
+        debug_alu_op : out std_logic_vector(3 downto 0);
+        debug_mem_addr : out std_logic_vector(WSIZE-1 downto 0);
+        debug_mem_data : out std_logic_vector(WSIZE-1 downto 0);
+        debug_mem_we : out std_logic;
+        debug_branch_taken : out std_logic;
+        debug_reg_write_addr : out std_logic_vector(4 downto 0)
     );
 end riscv_processor;
 
@@ -31,37 +40,39 @@ architecture behavioral of riscv_processor is
             aluSrc      : out std_logic;
             regWrite    : out std_logic;
             jump        : out std_logic;
-            auipc       : out std_logic
+            is_auipc    : out std_logic;
+            is_mem_op   : out std_logic
         );
     end component;
     
     component XREGS is
         generic (WSIZE : natural := 32);
         port (
-            data    : in  std_logic_vector(WSIZE-1 downto 0);
-            rd      : in  std_logic_vector(4 downto 0);
+            clk  : in  std_logic;
+            rst  : in  std_logic;
+            wren : in  std_logic;
+            rd   : in  std_logic_vector(4 downto 0);
             rs1, rs2: in  std_logic_vector(4 downto 0);
-            wren    : in  std_logic;
-            clk     : in  std_logic;
-            ro2, ro1: out std_logic_vector(WSIZE-1 downto 0)
+            data : in  std_logic_vector(WSIZE-1 downto 0);
+            ro1, ro2: out std_logic_vector(WSIZE-1 downto 0)
         );
     end component;
     
     component memoria_instrucoes is
         port (
-            addr : in  std_logic_vector(ADDR_WIDTH-1 downto 0);
-            data : out std_logic_vector(DATA_WIDTH-1 downto 0)
+            addr     : in  std_logic_vector(ADDR_WIDTH-1 downto 0);
+            data     : out std_logic_vector(WSIZE-1 downto 0)
         );
     end component;
 
     component memoria_dados is
         port (
             clk      : in  std_logic;
-            addr     : in  std_logic_vector(ADDR_WIDTH-1 downto 0);
+            addr     : in  std_logic_vector(WSIZE-1 downto 0);
             write_en : in  std_logic;
-            byte_en  : in  std_logic;  -- '1' for byte operations, '0' for word
-            data_in  : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-            data_out : out std_logic_vector(DATA_WIDTH-1 downto 0)
+            funct3   : in  std_logic_vector(2 downto 0);
+            data_in  : in  std_logic_vector(WSIZE-1 downto 0);
+            data_out : out std_logic_vector(WSIZE-1 downto 0)
         );
     end component;
     
@@ -71,7 +82,8 @@ architecture behavioral of riscv_processor is
             opcode : in  std_logic_vector(3 downto 0);
             A, B   : in  std_logic_vector(WSIZE-1 downto 0);
             Z      : out std_logic_vector(WSIZE-1 downto 0);
-            zero   : out std_logic
+            zero   : out std_logic;
+            is_mem_op : in std_logic
         );
     end component;
     
@@ -81,12 +93,15 @@ architecture behavioral of riscv_processor is
             entrada : in  std_logic_vector(WSIZE-1 downto 0);
             saida   : out std_logic_vector(WSIZE-1 downto 0);
             offset  : in  std_logic_vector(WSIZE-1 downto 0);
-            sel     : in  std_logic
+            sel     : in  std_logic;
+            rst     : in  std_logic
         );
     end component;
 
     component somador is
-        generic (WSIZE : natural := 32);
+        generic (
+            WSIZE : natural := 32
+        );
         port (
             entrada_a : in  std_logic_vector(WSIZE-1 downto 0);
             entrada_b : in  std_logic_vector(WSIZE-1 downto 0);
@@ -105,43 +120,52 @@ architecture behavioral of riscv_processor is
     end component;
     
     -- Internal signals
-    signal pc_current, pc_next : std_logic_vector(WSIZE-1 downto 0);
-    signal instruction : std_logic_vector(WSIZE-1 downto 0);
-    signal reg_write_data : std_logic_vector(WSIZE-1 downto 0);
-    signal rs1_data, rs2_data : std_logic_vector(WSIZE-1 downto 0);
-    signal alu_result : std_logic_vector(WSIZE-1 downto 0);
-    signal mem_read_data : std_logic_vector(WSIZE-1 downto 0);
-    signal immediate : std_logic_vector(WSIZE-1 downto 0);
-    
-    -- Adder signals
-    signal pc_plus_4 : std_logic_vector(WSIZE-1 downto 0);
-    signal pc_plus_imm : std_logic_vector(WSIZE-1 downto 0);
-    signal addr_result : std_logic_vector(WSIZE-1 downto 0);
-    
-    -- MUX signals
-    signal alu_src_mux_out : std_logic_vector(WSIZE-1 downto 0);
-    signal mem_to_reg_mux_out : std_logic_vector(WSIZE-1 downto 0);
-    signal branch_mux_out : std_logic_vector(WSIZE-1 downto 0);
-    signal auipc_mux_out : std_logic_vector(WSIZE-1 downto 0);
-    signal byte_word_mux_out : std_logic_vector(WSIZE-1 downto 0);
+    signal pc_current, pc_next : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal instruction : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal reg_write_data : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal rs1_data, rs2_data : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal alu_result : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal mem_read_data : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal immediate : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
     
     -- Memory signals
-    signal mem_addr : std_logic_vector(ADDR_WIDTH-1 downto 0);
-    signal mem_byte_data : std_logic_vector(7 downto 0);
-    signal mem_word_data : std_logic_vector(WSIZE-1 downto 0);
+    signal mem_addr : std_logic_vector(ADDR_WIDTH-1 downto 0) := (others => '0');
+    signal mem_word_data : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    
+    -- Adder signals
+    signal pc_plus_4 : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal pc_plus_imm : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal addr_result : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    
+    -- MUX signals
+    signal alu_src_mux_out : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal mem_to_reg_mux_out : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal branch_mux_out : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal auipc_mux_out : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
     
     -- Control signals
-    signal branch, memRead, memtoReg, memWrite, aluSrc, regWrite, jump, auipc : std_logic;
-    signal aluOp : std_logic_vector(1 downto 0);
-    signal zero : std_logic;
-    signal is_byte_op : std_logic;  -- Indica operação de byte
+    signal branch, memRead, memtoReg, memWrite, aluSrc, regWrite, jump, is_auipc, is_mem_op : std_logic := '0';
+    signal aluOp : std_logic_vector(1 downto 0) := "00";
+    signal zero : std_logic := '0';
+    signal branch_taken : std_logic := '0';
+    signal alu_input_b : std_logic_vector(WSIZE-1 downto 0) := (others => '0');
+    signal alu_opcode : std_logic_vector(3 downto 0) := "0000";
     
 begin
+    -- Calculate branch condition
+    branch_taken <= branch and zero;
+    
+    -- Select ALU input B
+    alu_input_b <= rs2_data when aluSrc = '0' else immediate;
+    
+    -- Calculate ALU opcode
+    alu_opcode <= aluOp & instruction(14 downto 13);
+
     -- PC register
     process(clk, rst)
     begin
         if rst = '1' then
-            pc_current <= (others => '0');
+            pc_current <= (others => '0');  -- Reset PC to 0
         elsif rising_edge(clk) then
             pc_current <= pc_next;
         end if;
@@ -154,7 +178,8 @@ begin
             entrada => pc_current,
             saida   => pc_next,
             offset  => immediate,
-            sel     => branch and zero
+            sel     => branch_taken,
+            rst     => rst
         );
 
     -- Immediate Adder (for AUIPC and address calculations)
@@ -190,7 +215,7 @@ begin
     branch_mux: mux_2
         generic map (WSIZE => WSIZE)
         port map (
-            sel       => branch and zero,
+            sel       => branch_taken,
             entrada_0 => pc_plus_4,
             entrada_1 => pc_plus_imm,
             saida     => branch_mux_out
@@ -200,16 +225,16 @@ begin
     auipc_mux: mux_2
         generic map (WSIZE => WSIZE)
         port map (
-            sel       => auipc,
+            sel       => is_auipc,
             entrada_0 => alu_result,
             entrada_1 => addr_result,
             saida     => auipc_mux_out
         );
     
-    -- Instruction memory (ROM)
+    -- Instruction memory instantiation
     inst_mem: memoria_instrucoes
         port map (
-            addr => pc_current(13 downto 2),  -- Word addressing
+            addr => pc_current(ADDR_WIDTH+1 downto 2),  -- Divide PC by 4 by dropping the 2 LSBs
             data => instruction
         );
     
@@ -234,7 +259,8 @@ begin
             aluSrc   => aluSrc,
             regWrite => regWrite,
             jump     => jump,
-            auipc    => auipc
+            is_auipc => is_auipc,
+            is_mem_op => is_mem_op
         );
     
     -- Register file
@@ -242,6 +268,7 @@ begin
         generic map (WSIZE => WSIZE)
         port map (
             clk  => clk,
+            rst  => rst,
             wren => regWrite,
             rd   => instruction(11 downto 7),
             rs1  => instruction(19 downto 15),
@@ -255,37 +282,35 @@ begin
     main_alu: ula
         generic map (WSIZE => WSIZE)
         port map (
-            opcode => aluOp & instruction(14 downto 13),
+            opcode => alu_opcode,
             A      => rs1_data,
-            B      => rs2_data when aluSrc = '0' else immediate,
+            B      => alu_input_b,
             Z      => alu_result,
-            zero   => zero
+            zero   => zero,
+            is_mem_op => is_mem_op
         );
     
-    -- Data memory
-    data_mem: memoria
-        generic map (WSIZE => WSIZE, ADDR_SIZE => 14)
+    -- Data memory instantiation
+    data_mem: memoria_dados
         port map (
             clk      => clk,
+            addr     => alu_result(ADDR_WIDTH-1 downto 0),  -- Slice to match memory address width
             write_en => memWrite,
-            addr     => alu_result(15 downto 2),
+            funct3   => instruction(14 downto 12),  -- funct3 field from instruction
             data_in  => rs2_data,
             data_out => mem_read_data
-        );
-    
-    -- PC adder
-    pc_adder: somador_pc
-        generic map (WSIZE => WSIZE)
-        port map (
-            entrada => pc_current,
-            offset  => immediate,
-            sel     => branch and zero,
-            saida   => pc_next
         );
     
     -- Debug outputs
     debug_pc <= pc_current;
     debug_inst <= instruction;
     debug_reg_write <= reg_write_data;
+    debug_alu_result <= alu_result;
+    debug_alu_op <= alu_opcode;
+    debug_mem_addr <= alu_result when memWrite = '1' or memRead = '1' else (others => '0');
+    debug_mem_data <= rs2_data when memWrite = '1' else mem_read_data;
+    debug_mem_we <= memWrite;
+    debug_branch_taken <= branch_taken;
+    debug_reg_write_addr <= instruction(11 downto 7);
     
 end behavioral;

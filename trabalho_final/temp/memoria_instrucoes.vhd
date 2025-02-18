@@ -25,7 +25,7 @@ begin
         variable word_addr : integer := 0;
     begin
         -- Initialize memory from file
-        file_open(mem_file, "memoria_instrucoes.txt", read_mode);
+        file_open(mem_file, "C:/Users/caefl/Documents/OAC-TRABALHOS/trabalho_final/temp/memoria_instrucoes.txt", read_mode);
         
         while not endfile(mem_file) loop
             readline(mem_file, line_content);

@@ -12,7 +12,10 @@ entity controle_ula is
         funct3 : in std_logic_vector(2 downto 0);
         
         -- Output operation
-        alu_operation : out alu_op_type
+        alu_operation : out alu_op_type;
+        
+        -- Memory operation indicator
+        is_mem_op : out std_logic
     );
 end entity;
 
@@ -20,10 +23,15 @@ architecture rtl of controle_ula is
 begin
     process(aluop, funct3, funct7)
     begin
+        -- Default values
+        alu_operation <= ALU_ADD;
+        is_mem_op <= '0';
+        
         case aluop is
             when "00" =>
                 -- Load/Store operations use addition
                 alu_operation <= ALU_ADD;
+                is_mem_op <= '1';
                 
             when "01" =>
                 -- Branch operations

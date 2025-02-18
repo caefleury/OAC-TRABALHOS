@@ -3,8 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 -- módulo da ula (unidade lógica aritmética) do risc-v
-
-entity ulaRV is
+entity ula is
     generic (
         -- tamanho padrão do risc-v rv32i
         WSIZE : natural := 32  
@@ -16,140 +15,103 @@ entity ulaRV is
         A, B : in std_logic_vector(WSIZE-1 downto 0);  
         -- resultado da operação
         Z : out std_logic_vector(WSIZE-1 downto 0);  
-        -- flag de condição - usado em comparações
-        cond : out std_logic  
+        -- flag de zero - usado em comparações
+        zero : out std_logic;
+        -- indica se é uma operação de memória
+        is_mem_op : in std_logic
     );
-end ulaRV;
+end ula;
 
-architecture comportamental of ulaRV is
+architecture comportamental of ula is
     -- sinais auxiliares para manipulação dos operandos
     signal A_signed : signed(WSIZE-1 downto 0);
     signal B_signed : signed(WSIZE-1 downto 0);
     signal A_unsigned : unsigned(WSIZE-1 downto 0);
     signal B_unsigned : unsigned(WSIZE-1 downto 0);
+    signal result : std_logic_vector(WSIZE-1 downto 0);
     
 begin
-    -- converte os operandos para signed e unsigned para facilitar as operações
+    -- Conversão dos operandos para os tipos signed e unsigned
     A_signed <= signed(A);
     B_signed <= signed(B);
     A_unsigned <= unsigned(A);
     B_unsigned <= unsigned(B);
     
-    -- process principal que implementa todas as operações da ula
-    process(opcode, A, B, A_signed, B_signed, A_unsigned, B_unsigned)
-        -- variáveis auxiliares para armazenar resultados temporários
-        variable shift_amount : integer;
-        variable result_temp : std_logic_vector(WSIZE-1 downto 0);
-        variable cond_temp : std_logic;
+    -- Processo principal da ULA
+    process(opcode, A, B, A_signed, B_signed, A_unsigned, B_unsigned, is_mem_op)
+        variable full_addr : unsigned(WSIZE-1 downto 0);
     begin
-        -- inicializa as variáveis temporárias
-        shift_amount := to_integer(unsigned(B(4 downto 0)));  -- usa apenas 5 bits para shift
-        result_temp := (others => '0');
-        cond_temp := '0';
-        
-        -- seleciona a operação baseado no opcode
         case opcode is
-            -- operações aritméticas
-            when "0000" =>  -- add
-                result_temp := std_logic_vector(A_signed + B_signed);
-                cond_temp := '0';
-                
-            when "0001" =>  -- sub
-                result_temp := std_logic_vector(A_signed - B_signed);
-                cond_temp := '0';
-                
-            -- operações lógicas
-            when "0010" =>  -- and
-                result_temp := A and B;
-                cond_temp := '0';
-                
-            when "0011" =>  -- or
-                result_temp := A or B;
-                cond_temp := '0';
-                
-            when "0100" =>  -- xor
-                result_temp := A xor B;
-                cond_temp := '0';
-                
-            -- operações de deslocamento
-            when "0101" =>  -- sll (shift left logical)
-                result_temp := std_logic_vector(shift_left(unsigned(A), shift_amount));
-                cond_temp := '0';
-                
-            when "0110" =>  -- srl (shift right logical)
-                result_temp := std_logic_vector(shift_right(unsigned(A), shift_amount));
-                cond_temp := '0';
-                
-            when "0111" =>  -- sra (shift right arithmetic)
-                result_temp := std_logic_vector(shift_right(signed(A), shift_amount));
-                cond_temp := '0';
-                
-            -- operações de comparação
-            when "1000" =>  -- slt (set less than)
+            -- ADD
+            when "0000" =>
+                full_addr := unsigned(A_signed + B_signed);
+                if is_mem_op = '1' then
+                    -- Se for operação de memória, ajusta o endereço
+                    if full_addr >= x"2000" and full_addr < x"3000" then
+                        -- Endereços do segmento de dados (0x2000-0x2FFF)
+                        -- Mapeia para 0x200-0xFFF no espaço de 12 bits
+                        result <= (31 downto 12 => '0') & std_logic_vector(full_addr(11 downto 0));
+                    else
+                        -- Para outros endereços, mantém apenas os 12 bits menos significativos
+                        result <= (31 downto 12 => '0') & std_logic_vector(full_addr(11 downto 0));
+                    end if;
+                else
+                    -- Se não for operação de memória, mantém o resultado normal
+                    result <= std_logic_vector(full_addr);
+                end if;
+            
+            -- SUB
+            when "0001" =>
+                result <= std_logic_vector(A_signed - B_signed);
+            
+            -- AND
+            when "0010" =>
+                result <= A and B;
+            
+            -- OR
+            when "0011" =>
+                result <= A or B;
+            
+            -- XOR
+            when "0100" =>
+                result <= A xor B;
+            
+            -- SLL (Shift Left Logical)
+            when "0101" =>
+                result <= std_logic_vector(shift_left(unsigned(A), to_integer(unsigned(B(4 downto 0)))));
+            
+            -- SRL (Shift Right Logical)
+            when "0110" =>
+                result <= std_logic_vector(shift_right(unsigned(A), to_integer(unsigned(B(4 downto 0)))));
+            
+            -- SRA (Shift Right Arithmetic)
+            when "0111" =>
+                result <= std_logic_vector(shift_right(signed(A), to_integer(unsigned(B(4 downto 0)))));
+            
+            -- SLT (Set Less Than)
+            when "1000" =>
                 if (A_signed < B_signed) then
-                    result_temp := std_logic_vector(to_unsigned(1, WSIZE));
-                    cond_temp := '1';
+                    result <= (0 => '1', 31 downto 1 => '0');
                 else
-                    result_temp := (others => '0');
-                    cond_temp := '0';
+                    result <= (31 downto 0 => '0');
                 end if;
-                
-            when "1001" =>  -- sltu (set less than unsigned)
+            
+            -- SLTU (Set Less Than Unsigned)
+            when "1001" =>
                 if (A_unsigned < B_unsigned) then
-                    result_temp := std_logic_vector(to_unsigned(1, WSIZE));
-                    cond_temp := '1';
+                    result <= (0 => '1', 31 downto 1 => '0');
                 else
-                    result_temp := (others => '0');
-                    cond_temp := '0';
+                    result <= (31 downto 0 => '0');
                 end if;
-                
-            when "1010" =>  -- sge (set greater equal)
-                if (A_signed >= B_signed) then
-                    result_temp := std_logic_vector(to_unsigned(1, WSIZE));
-                    cond_temp := '1';
-                else
-                    result_temp := (others => '0');
-                    cond_temp := '0';
-                end if;
-                
-            when "1011" =>  -- sgeu (set greater equal unsigned)
-                if (A_unsigned >= B_unsigned) then
-                    result_temp := std_logic_vector(to_unsigned(1, WSIZE));
-                    cond_temp := '1';
-                else
-                    result_temp := (others => '0');
-                    cond_temp := '0';
-                end if;
-                
-            when "1100" =>  -- seq (set equal)
-                if (A = B) then
-                    result_temp := std_logic_vector(to_unsigned(1, WSIZE));
-                    cond_temp := '1';
-                else
-                    result_temp := (others => '0');
-                    cond_temp := '0';
-                end if;
-                
-            when "1101" =>  -- sne (set not equal)
-                if (A /= B) then
-                    result_temp := std_logic_vector(to_unsigned(1, WSIZE));
-                    cond_temp := '1';
-                else
-                    result_temp := (others => '0');
-                    cond_temp := '0';
-                end if;
-                
-            -- caso padrão (opcode inválido)
+            
+            -- Operação não definida
             when others =>
-                result_temp := (others => '0');
-                cond_temp := '0';
-                
+                result <= (31 downto 0 => '0');
         end case;
-        
-        -- atualizador das saídas
-        Z <= result_temp;
-        cond <= cond_temp;
-        
     end process;
+    
+    -- Atualiza as saídas
+    Z <= result;
+    zero <= '1' when result = (result'range => '0') else '0';
     
 end comportamental;

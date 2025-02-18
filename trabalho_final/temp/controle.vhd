@@ -21,7 +21,8 @@ entity controle is
         -- Additional control signals for specific instructions
         is_auipc   : out std_logic;  -- '1' para AUIPC
         is_lui     : out std_logic;  -- '1' para LUI
-        jump       : out std_logic   -- '1' para saltos
+        jump       : out std_logic;   -- '1' para saltos
+        is_mem_op  : out std_logic    -- '1' para operações de memória
     );
 end entity;
 
@@ -48,6 +49,8 @@ begin
         regwrite  <= '0';
         is_auipc   <= '0';
         is_lui     <= '0';
+        jump       <= '0';
+        is_mem_op  <= '0';  -- Default: não é operação de memória
         
         case opcode is
             when OP_LUI =>
@@ -71,15 +74,15 @@ begin
                 
             when OP_LOAD =>
                 memread  <= '1';
+                memtoreg <= '1';
                 regwrite <= '1';
                 alusrc   <= '1';
-                memtoreg <= '1';
-                is_byte_op <= funct3 = "000" or funct3 = "100";  -- LB/LBU
+                is_mem_op <= '1';  -- É operação de memória
                 
             when OP_STORE =>
                 memwrite <= '1';
                 alusrc   <= '1';
-                is_byte_op <= funct3 = "000";  -- SB
+                is_mem_op <= '1';  -- É operação de memória
                 
             when OP_BRANCH =>
                 branch   <= '1';

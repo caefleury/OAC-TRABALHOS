@@ -61,39 +61,55 @@ package riscv_pkg is
         regwrite   : std_logic;
     end record;
     
-    -- Function declarations
+    
     function to_alu_op(aluop : std_logic_vector(3 downto 0)) return alu_op_type;
     
-    -- Component declarations
+    
     component ula is
+        generic (
+            WSIZE : natural
+        );
         port (
-            A, B     : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-            op       : in  alu_op_type;
-            result   : out std_logic_vector(DATA_WIDTH-1 downto 0);
-            zero     : out std_logic
+            opcode : in std_logic_vector(3 downto 0);
+            A, B : in std_logic_vector(DATA_WIDTH-1 downto 0);
+            Z : out std_logic_vector(DATA_WIDTH-1 downto 0);
+            zero : out std_logic;
+            is_mem_op : in std_logic  
         );
     end component;
-    
-    component banco_xregs is
+
+    component XREGS is
+        generic (
+            WSIZE : natural := 32
+        );
         port (
-            clk, wren : in std_logic;
-            rs1, rs2  : in std_logic_vector(REG_WIDTH-1 downto 0);
-            rd        : in std_logic_vector(REG_WIDTH-1 downto 0);
-            data      : in std_logic_vector(DATA_WIDTH-1 downto 0);
-            ro1, ro2  : out std_logic_vector(DATA_WIDTH-1 downto 0)
+            clk  : in  std_logic;
+            rst  : in  std_logic;
+            wren : in  std_logic;
+            rd   : in  std_logic_vector(4 downto 0);
+            rs1, rs2: in  std_logic_vector(4 downto 0);
+            data : in  std_logic_vector(DATA_WIDTH-1 downto 0);
+            ro1, ro2: out std_logic_vector(DATA_WIDTH-1 downto 0)
         );
     end component;
 
     component somador_pc is
+        generic (
+            WSIZE : natural := 32
+        );
         port (
             entrada : in  std_logic_vector(DATA_WIDTH-1 downto 0);
             saida   : out std_logic_vector(DATA_WIDTH-1 downto 0);
             offset  : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-            sel     : in  std_logic
+            sel     : in  std_logic;
+            rst     : in  std_logic
         );
     end component;
 
     component somador is
+        generic (
+            WSIZE : natural := 32
+        );
         port (
             entrada_a : in  std_logic_vector(DATA_WIDTH-1 downto 0);
             entrada_b : in  std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -127,13 +143,37 @@ package riscv_pkg is
     component memoria_dados is
         port (
             clk      : in  std_logic;
-            addr     : in  std_logic_vector(ADDR_WIDTH-1 downto 0);
+            addr     : in  std_logic_vector(DATA_WIDTH-1 downto 0);
             write_en : in  std_logic;
-            byte_en  : in  std_logic;  -- '1' for byte operations, '0' for word
-            data_in  : in  std_logic_vector(DATA_WIDTH-1 downto 0);
+            funct3   : in  std_logic_vector(2 downto 0);
+            data : in  std_logic_vector(DATA_WIDTH-1 downto 0);
             data_out : out std_logic_vector(DATA_WIDTH-1 downto 0)
         );
     end component;
+
+    component controle is
+    port (
+        -- Instruction input
+        opcode : in std_logic_vector(6 downto 0);
+        funct3 : in std_logic_vector(2 downto 0);
+        funct7 : in std_logic_vector(6 downto 0);
+        
+        -- Control outputs
+        branch : out std_logic;
+        memread : out std_logic;
+        memtoreg : out std_logic;
+        aluop : out std_logic_vector(1 downto 0);
+        memwrite : out std_logic;
+        alusrc : out std_logic;
+        regwrite : out std_logic;
+        
+        -- Additional control signals
+        is_auipc : out std_logic;
+        is_lui : out std_logic;
+        jump : out std_logic;
+        is_mem_op : out std_logic
+    );
+end component;
     
 end package riscv_pkg;
 

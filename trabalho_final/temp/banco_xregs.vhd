@@ -16,6 +16,7 @@ entity XREGS is
         -- ctrl
         wren : in std_logic;
         clk : in std_logic;
+        rst : in std_logic;  -- Added reset signal
         -- saidas - ro = read output
         ro2, ro1 : out std_logic_vector(WSIZE-1 downto 0)
     );
@@ -37,8 +38,12 @@ begin
                 regs(to_integer(unsigned(rs1)));
 
     -- processo de escrita - so escreve na borda de subida e com wren=1
-    process(clk)begin
-        if rising_edge(clk) then
+    process(clk, rst)
+    begin
+        if rst = '1' then
+            -- Reset all registers to 0
+            regs <= (others => (others => '0'));
+        elsif rising_edge(clk) then
             if wren = '1' then
                 -- nunca escreve no reg0!!
                 if rd /= "00000" then
