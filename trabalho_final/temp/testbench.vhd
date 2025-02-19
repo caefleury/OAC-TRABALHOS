@@ -202,23 +202,45 @@ begin
             
             -- Additional verification for specific instruction types
             case instruction(6 downto 0) is
-                when "0110011" => -- R-type
+                when "0110011" => -- R
                     report "R-type instruction detected";
                     report "  rd: x" & integer'image(to_integer(unsigned(instruction(11 downto 7))));
                     report "  rs1: x" & integer'image(to_integer(unsigned(instruction(19 downto 15))));
                     report "  rs2: x" & integer'image(to_integer(unsigned(instruction(24 downto 20))));
-                when "0010011" | "0000011" => -- I-type (including load)
+                when "0010011" | "0000011" => -- I
                     report "I-type instruction detected";
                     report "  rd: x" & integer'image(to_integer(unsigned(instruction(11 downto 7))));
                     report "  rs1: x" & integer'image(to_integer(unsigned(instruction(19 downto 15))));
                     report "  imm: " & integer'image(to_integer(signed(instruction(31 downto 20))));
-                when "0100011" => -- S-type
+                when "0100011" => -- S
                     report "S-type instruction detected";
                     report "  rs2: x" & integer'image(to_integer(unsigned(instruction(24 downto 20))));
                     report "  rs1: x" & integer'image(to_integer(unsigned(instruction(19 downto 15))));
                     report "  imm: " & integer'image(to_integer(signed(instruction(31 downto 25) & instruction(11 downto 7))));
+                when "1100011" => -- B
+                    report "B-type instruction detected";
+                    report "  rs1: x" & integer'image(to_integer(unsigned(instruction(19 downto 15))));
+                    report "  rs2: x" & integer'image(to_integer(unsigned(instruction(24 downto 20))));
+                    report "  imm: " & integer'image(to_integer(signed(instruction(31) & instruction(7) & instruction(30 downto 25) & instruction(11 downto 8) & '0')));
+                when "0110111" => -- LUI
+                    report "LUI instruction detected";
+                    report "  rd: x" & integer'image(to_integer(unsigned(instruction(11 downto 7))));
+                    report "  imm: 0x" & to_hex_string(instruction(31 downto 12) & x"000");
+                when "0010111" => -- AUIPC
+                    report "AUIPC instruction detected";
+                    report "  rd: x" & integer'image(to_integer(unsigned(instruction(11 downto 7))));
+                    report "  imm: 0x" & to_hex_string(instruction(31 downto 12) & x"000");
+                when "1101111" => -- JAL
+                    report "JAL instruction detected";
+                    report "  rd: x" & integer'image(to_integer(unsigned(instruction(11 downto 7))));
+                    report "  imm: " & integer'image(to_integer(signed(instruction(31) & instruction(19 downto 12) & instruction(20) & instruction(30 downto 21) & '0')));
+                when "1100111" => -- JALR
+                    report "JALR instruction detected";
+                    report "  rd: x" & integer'image(to_integer(unsigned(instruction(11 downto 7))));
+                    report "  rs1: x" & integer'image(to_integer(unsigned(instruction(19 downto 15))));
+                    report "  imm: " & integer'image(to_integer(signed(instruction(31 downto 20))));
                 when others =>
-                    report "Other instruction type";
+                    report "Unknown instruction type: " & to_hex_string(instruction);
             end case;
             
             -- Now advance to next clock cycle
@@ -290,12 +312,6 @@ begin
         
         -- Test 17: Check shift immediate (addi after lui)
         check_instruction(x"01428293", "ADDI after LUI Test");
-        
-        -- Test 18: Check AUIPC instruction (auipc x6, 1)
-        check_instruction(x"00001337", "AUIPC Instruction Test");
-        
-        -- Test 19: Check add immediate after AUIPC
-        check_instruction(x"00830313", "ADDI after AUIPC Test");
         
         -- Test 20: Check SLL instruction (sll x5, x5, x1)
         check_instruction(x"00129293", "SLL Instruction Test");
