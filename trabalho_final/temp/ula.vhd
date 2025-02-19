@@ -40,78 +40,94 @@ begin
     -- Processo principal da ULA
     process(opcode, A, B, A_signed, B_signed, A_unsigned, B_unsigned, is_mem_op)
         variable full_addr : unsigned(WSIZE-1 downto 0);
+        variable calc_result : std_logic_vector(WSIZE-1 downto 0);
     begin
-        case opcode is
-            -- ADD
-            when "0000" =>
-                full_addr := unsigned(A_signed + B_signed);
-                if is_mem_op = '1' then
-                    -- Se for operação de memória, ajusta o endereço
-                    if full_addr >= x"2000" and full_addr < x"3000" then
-                        -- Endereços do segmento de dados (0x2000-0x2FFF)
-                        -- Mapeia para 0x200-0xFFF no espaço de 12 bits
-                        result <= (31 downto 12 => '0') & std_logic_vector(full_addr(11 downto 0));
+        -- Initialize result to prevent metavalues
+        calc_result := (others => '0');
+        
+        -- Check for valid inputs (no metavalues)
+        if not (is_x(A) or is_x(B) or is_x(opcode)) then
+            
+            -- Calculate the result
+            case opcode is
+                -- ADD
+                when "0000" =>
+                    calc_result := std_logic_vector(A_signed + B_signed);
+                
+                -- SUB
+                when "0001" =>
+                    calc_result := std_logic_vector(A_signed - B_signed);
+                
+                -- AND
+                when "0010" =>
+                    calc_result := A and B;
+                
+                -- OR
+                when "0011" =>
+                    calc_result := A or B;
+                
+                -- XOR
+                when "0100" =>
+                    calc_result := A xor B;
+                
+                -- SLL
+                when "0101" =>
+                    calc_result := std_logic_vector(shift_left(unsigned(A), to_integer(unsigned(B(4 downto 0)))));
+                
+                -- SRL
+                when "0110" =>
+                    calc_result := std_logic_vector(shift_right(unsigned(A), to_integer(unsigned(B(4 downto 0)))));
+                
+                -- SRA
+                when "0111" =>
+                    calc_result := std_logic_vector(shift_right(signed(A), to_integer(unsigned(B(4 downto 0)))));
+                
+                -- SLT
+                when "1000" =>
+                    if A_signed < B_signed then
+                        calc_result := (31 downto 1 => '0') & '1';
                     else
-                        -- Para outros endereços, mantém apenas os 12 bits menos significativos
-                        result <= (31 downto 12 => '0') & std_logic_vector(full_addr(11 downto 0));
+                        calc_result := (31 downto 0 => '0');
                     end if;
+                
+                -- SLTU
+                when "1001" =>
+                    if A_unsigned < B_unsigned then
+                        calc_result := (31 downto 1 => '0') & '1';
+                    else
+                        calc_result := (31 downto 0 => '0');
+                    end if;
+                
+                -- Default
+                when others =>
+                    calc_result := (31 downto 0 => '0');
+            end case;
+
+            -- For memory operations, adjust the address if needed
+            if is_mem_op = '1' then
+                full_addr := unsigned(calc_result);
+                if full_addr >= x"2000" and full_addr < x"3000" then
+                    -- Map data segment addresses (0x2000-0x2FFF) to 12-bit space
+                    result <= (31 downto 12 => '0') & std_logic_vector(full_addr(11 downto 0));
                 else
-                    -- Se não for operação de memória, mantém o resultado normal
-                    result <= std_logic_vector(full_addr);
+                    -- For other addresses, keep only lower 12 bits
+                    result <= (31 downto 12 => '0') & std_logic_vector(full_addr(11 downto 0));
                 end if;
+            else
+                -- For non-memory operations, use the calculated result directly
+                result <= calc_result;
+            end if;
             
-            -- SUB
-            when "0001" =>
-                result <= std_logic_vector(A_signed - B_signed);
-            
-            -- AND
-            when "0010" =>
-                result <= A and B;
-            
-            -- OR
-            when "0011" =>
-                result <= A or B;
-            
-            -- XOR
-            when "0100" =>
-                result <= A xor B;
-            
-            -- SLL (Shift Left Logical)
-            when "0101" =>
-                result <= std_logic_vector(shift_left(unsigned(A), to_integer(unsigned(B(4 downto 0)))));
-            
-            -- SRL (Shift Right Logical)
-            when "0110" =>
-                result <= std_logic_vector(shift_right(unsigned(A), to_integer(unsigned(B(4 downto 0)))));
-            
-            -- SRA (Shift Right Arithmetic)
-            when "0111" =>
-                result <= std_logic_vector(shift_right(signed(A), to_integer(unsigned(B(4 downto 0)))));
-            
-            -- SLT (Set Less Than)
-            when "1000" =>
-                if (A_signed < B_signed) then
-                    result <= (0 => '1', 31 downto 1 => '0');
-                else
-                    result <= (31 downto 0 => '0');
-                end if;
-            
-            -- SLTU (Set Less Than Unsigned)
-            when "1001" =>
-                if (A_unsigned < B_unsigned) then
-                    result <= (0 => '1', 31 downto 1 => '0');
-                else
-                    result <= (31 downto 0 => '0');
-                end if;
-            
-            -- Operação não definida
-            when others =>
-                result <= (31 downto 0 => '0');
-        end case;
+            -- Set zero flag
+            if unsigned(calc_result) = 0 then
+                zero <= '1';
+            else
+                zero <= '0';
+            end if;
+        end if;
     end process;
     
-    -- Atualiza as saídas
+    -- Output assignment
     Z <= result;
-    zero <= '1' when result = (result'range => '0') else '0';
     
 end comportamental;

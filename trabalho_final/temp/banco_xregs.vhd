@@ -1,6 +1,7 @@
 library ieee;
-use ieee.numeric_std.all;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use work.riscv_pkg.all;
 
 entity XREGS is
     generic (
@@ -28,6 +29,20 @@ architecture behavioral of XREGS is
     -- zera td no inicio
     signal regs : reg_array := (others => (others => '0'));
 
+    -- Function to convert std_logic_vector to hex string
+    function to_hex_string(slv: std_logic_vector) return string is
+        constant hex_table: string(1 to 16) := "0123456789ABCDEF";
+        variable result: string(1 to 8);  -- 32 bits = 8 hex chars
+        variable temp: std_logic_vector(31 downto 0);
+    begin
+        temp := slv;
+        for i in 0 to 7 loop
+            result(8-i) := hex_table(to_integer(unsigned(temp(3 downto 0))) + 1);
+            temp := "0000" & temp(31 downto 4);  -- Shift right by 4
+        end loop;
+        return result;
+    end function;
+
 begin
     -- logica de leitura dos regs
     -- reg0 sempre retorna 0 msm     
@@ -48,9 +63,11 @@ begin
                 -- nunca escreve no reg0!!
                 if rd /= "00000" then
                     regs(to_integer(unsigned(rd))) <= data;
+                    -- Print register value after write
+                    report "Register x" & integer'image(to_integer(unsigned(rd))) & 
+                           " = 0x" & to_hex_string(data);
                 end if;
             end if;
         end if;
     end process;
-
 end behavioral;

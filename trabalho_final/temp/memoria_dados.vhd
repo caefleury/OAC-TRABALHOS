@@ -18,50 +18,57 @@ end entity;
 
 architecture rtl of memoria_dados is
     type mem_type is array (0 to 2**ADDR_WIDTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
-    signal mem : mem_type := (others => (others => '0'));
     
-begin
-    -- Process to initialize memory from file
-    process
-        file mem_file : text;
+    -- Function to initialize memory from file
+    impure function init_ram_hex return mem_type is
+        file mem_file : text open read_mode is "C:/Users/caefl/Documents/OAC-TRABALHOS-master/OAC-TRABALHOS-master/trabalho_final/temp/memoria_dados.txt";
         variable line_content : line;
         variable temp_data : std_logic_vector(31 downto 0);
-        variable word_addr : integer := 0;
+        variable ram_content : mem_type;
     begin
-        -- Initialize memory from file
-        file_open(mem_file, "C:/Users/caefl/Documents/OAC-TRABALHOS-master/OAC-TRABALHOS-master/trabalho_final/temp/memoria_dados.txt", read_mode);
-        
-        while not endfile(mem_file) loop
-            readline(mem_file, line_content);
-            if line_content.all'length > 0 then
-                hread(line_content, temp_data);  -- Read hex value
-                mem(word_addr) <= temp_data;
-                word_addr := word_addr + 1;
+        for i in 0 to 2**ADDR_WIDTH-1 loop
+            if not endfile(mem_file) then
+                readline(mem_file, line_content);
+                if line_content.all'length > 0 then
+                    hread(line_content, temp_data);
+                    ram_content(i) := temp_data;
+                end if;
+            else
+                ram_content(i) := (others => '0');
             end if;
         end loop;
-        
-        file_close(mem_file);
-        wait;
-    end process;
+        return ram_content;
+    end function;
+
+    -- Initialize memory using the function
+    signal mem : mem_type := init_ram_hex;
     
+begin
     -- Write process (synchronous)
     process(clk)
         variable word_addr : integer;
     begin
         if rising_edge(clk) then
-            if write_en = '1' then
-                word_addr := to_integer(unsigned(addr));
+            -- Check for valid inputs before performing memory operations
+            if write_en = '1' and not (is_x(addr) or is_x(data_in)) then
+                word_addr := to_integer(unsigned(addr(11 downto 0)));  -- Use only lower 12 bits
                 mem(word_addr) <= data_in;
             end if;
         end if;
     end process;
-    
-    -- Read process (combinational)
+
+    -- Read process (asynchronous)
     process(addr, mem)
         variable word_addr : integer;
     begin
-        word_addr := to_integer(unsigned(addr));
-        data_out <= mem(word_addr);
+        -- Initialize output to prevent metavalues
+        data_out <= (others => '0');
+        
+        -- Check for valid address before reading
+        if not is_x(addr) then
+            word_addr := to_integer(unsigned(addr(11 downto 0)));  -- Use only lower 12 bits
+            data_out <= mem(word_addr);
+        end if;
     end process;
     
 end architecture;

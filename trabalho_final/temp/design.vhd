@@ -8,11 +8,11 @@ entity riscv_processor is
         WSIZE : natural := 32
     );
     port (
-        clk        : in  std_logic;
-        rst        : in  std_logic;  -- Added reset signal
+        clk          : in  std_logic;
+        rst          : in  std_logic;
         -- Debug ports
-        debug_pc    : out std_logic_vector(WSIZE-1 downto 0);
-        debug_inst  : out std_logic_vector(WSIZE-1 downto 0);
+        debug_pc     : out std_logic_vector(WSIZE-1 downto 0);
+        debug_inst   : out std_logic_vector(WSIZE-1 downto 0);
         debug_reg_write : out std_logic_vector(WSIZE-1 downto 0);
         -- Additional debug ports
         debug_alu_result : out std_logic_vector(WSIZE-1 downto 0);
@@ -21,7 +21,23 @@ entity riscv_processor is
         debug_mem_data : out std_logic_vector(WSIZE-1 downto 0);
         debug_mem_we : out std_logic;
         debug_branch_taken : out std_logic;
-        debug_reg_write_addr : out std_logic_vector(4 downto 0)
+        debug_reg_write_addr : out std_logic_vector(4 downto 0);
+        -- New debug signals
+        debug_branch    : out std_logic;
+        debug_memread   : out std_logic;
+        debug_memtoreg  : out std_logic;
+        debug_aluop     : out std_logic_vector(1 downto 0);
+        debug_memwrite  : out std_logic;
+        debug_alusrc    : out std_logic;
+        debug_regwrite  : out std_logic;
+        debug_jump      : out std_logic;
+        debug_alu_result_ext: out std_logic_vector(WSIZE-1 downto 0);
+        debug_mem_rdata : out std_logic_vector(WSIZE-1 downto 0);
+        debug_mem_wdata : out std_logic_vector(WSIZE-1 downto 0);
+        debug_next_pc   : out std_logic_vector(WSIZE-1 downto 0);
+        debug_rs1_data  : out std_logic_vector(WSIZE-1 downto 0);
+        debug_rs2_data  : out std_logic_vector(WSIZE-1 downto 0);
+        debug_imm_value : out std_logic_vector(WSIZE-1 downto 0)
     );
 end riscv_processor;
 
@@ -159,7 +175,37 @@ begin
     alu_input_b <= rs2_data when aluSrc = '0' else immediate;
     
     -- Calculate ALU opcode
-    alu_opcode <= aluOp & instruction(14 downto 13);
+    process(aluOp, instruction)
+    begin
+        case aluOp is
+            when "10" =>  -- R-type or I-type
+                case instruction(14 downto 12) is  -- funct3
+                    when "000" =>  -- ADD/SUB/ADDI
+                        if instruction(6 downto 0) = "0110011" and instruction(31 downto 25) = "0100000" then
+                            alu_opcode <= "0001";  -- SUB (only for R-type)
+                        else
+                            alu_opcode <= "0000";  -- ADD (for R-type ADD and I-type ADDI)
+                        end if;
+                    when "001" => alu_opcode <= "0101";  -- SLL
+                    when "010" => alu_opcode <= "1000";  -- SLT
+                    when "011" => alu_opcode <= "1001";  -- SLTU
+                    when "100" => alu_opcode <= "0100";  -- XOR
+                    when "101" =>  -- SRL/SRA
+                        if instruction(31 downto 25) = "0100000" then
+                            alu_opcode <= "0111";  -- SRA
+                        else
+                            alu_opcode <= "0110";  -- SRL
+                        end if;
+                    when "110" => alu_opcode <= "0011";  -- OR
+                    when "111" => alu_opcode <= "0010";  -- AND
+                    when others => alu_opcode <= "0000";
+                end case;
+            when "01" =>  -- Branch
+                alu_opcode <= "0001";  -- SUB for comparison
+            when others =>
+                alu_opcode <= "0000";  -- Default to ADD
+        end case;
+    end process;
 
     -- PC register
     process(clk, rst)
@@ -301,10 +347,18 @@ begin
             data_out => mem_read_data
         );
     
-    -- Debug outputs
+    -- Debug signals should reflect current state
     debug_pc <= pc_current;
     debug_inst <= instruction;
     debug_reg_write <= reg_write_data;
+    debug_branch <= branch;
+    debug_memread <= memRead;
+    debug_memtoreg <= memtoReg;
+    debug_aluop <= aluOp;
+    debug_memwrite <= memWrite;
+    debug_alusrc <= aluSrc;
+    debug_regwrite <= regWrite;
+    debug_jump <= jump;
     debug_alu_result <= alu_result;
     debug_alu_op <= alu_opcode;
     debug_mem_addr <= alu_result when memWrite = '1' or memRead = '1' else (others => '0');
@@ -312,5 +366,15 @@ begin
     debug_mem_we <= memWrite;
     debug_branch_taken <= branch_taken;
     debug_reg_write_addr <= instruction(11 downto 7);
+    debug_mem_rdata <= mem_read_data;
+    debug_mem_wdata <= rs2_data;
+    debug_next_pc <= pc_next;
+    debug_rs1_data <= rs1_data;
+    debug_rs2_data <= rs2_data;
+    debug_imm_value <= immediate;
+    debug_alu_result_ext <= alu_result;
+    
+    -- Connect register write data to mem_to_reg_mux output
+    reg_write_data <= mem_to_reg_mux_out;
     
 end behavioral;

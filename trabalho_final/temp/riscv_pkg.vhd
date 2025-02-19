@@ -78,6 +78,16 @@ package riscv_pkg is
         );
     end component;
 
+    component controle_ula is
+        port (
+            aluop  : in std_logic_vector(1 downto 0);
+            funct7 : in std_logic_vector(6 downto 0);
+            funct3 : in std_logic_vector(2 downto 0);
+            alu_operation : out alu_op_type;
+            is_mem_op : out std_logic
+        );
+    end component;
+
     component XREGS is
         generic (
             WSIZE : natural := 32
@@ -118,11 +128,14 @@ package riscv_pkg is
     end component;
 
     component mux_2 is
+        generic (
+            WSIZE : natural := 32
+        );
         port (
             sel       : in  std_logic;
-            entrada_0 : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-            entrada_1 : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-            saida     : out std_logic_vector(DATA_WIDTH-1 downto 0)
+            entrada_0 : in  std_logic_vector(WSIZE-1 downto 0);
+            entrada_1 : in  std_logic_vector(WSIZE-1 downto 0);
+            saida     : out std_logic_vector(WSIZE-1 downto 0)
         );
     end component;
 
@@ -152,28 +165,28 @@ package riscv_pkg is
     end component;
 
     component controle is
-    port (
-        -- Instruction input
-        opcode : in std_logic_vector(6 downto 0);
-        funct3 : in std_logic_vector(2 downto 0);
-        funct7 : in std_logic_vector(6 downto 0);
-        
-        -- Control outputs
-        branch : out std_logic;
-        memread : out std_logic;
-        memtoreg : out std_logic;
-        aluop : out std_logic_vector(1 downto 0);
-        memwrite : out std_logic;
-        alusrc : out std_logic;
-        regwrite : out std_logic;
-        
-        -- Additional control signals
-        is_auipc : out std_logic;
-        is_lui : out std_logic;
-        jump : out std_logic;
-        is_mem_op : out std_logic
-    );
-end component;
+        port (
+            -- Instruction input
+            opcode : in std_logic_vector(6 downto 0);
+            funct3 : in std_logic_vector(2 downto 0);
+            funct7 : in std_logic_vector(6 downto 0);
+            
+            -- Control outputs
+            branch : out std_logic;
+            memread : out std_logic;
+            memtoreg : out std_logic;
+            aluop : out std_logic_vector(1 downto 0);
+            memwrite : out std_logic;
+            alusrc : out std_logic;
+            regwrite : out std_logic;
+            
+            -- Additional control signals
+            is_auipc : out std_logic;
+            is_lui : out std_logic;
+            jump : out std_logic;
+            is_mem_op : out std_logic
+        );
+    end component;
     
 end package riscv_pkg;
 
