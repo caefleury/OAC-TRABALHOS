@@ -4,56 +4,194 @@ Este documento detalha todas as instruções em nossa implementação RISC-V, in
 
 ## Sequência de Instruções
 
-### 1. ADDI (Adicionar Imediato)
-```
-Instrução: 00500113
-Assembly: addi x2, x0, 5
-Propósito: Adiciona o imediato 5 ao valor de x0 (0) e armazena em x2
-Sinais de Controle:
-- RegWrite = 1 (escreve no registrador)
-- ALUSrc = 1 (usa imediato)
-- ALUOp = 10 (operação tipo I)
-```
-
-### 2. ADDI (Adicionar Imediato)
-```
-Instrução: 00300193
-Assembly: addi x3, x0, 3
-Propósito: Adiciona o imediato 3 ao valor de x0 (0) e armazena em x3
+### 1. ADDI 
+Instrução: `00500093`
+Assembly: `addi x1, x0, 5`
+Propósito: Inicializa x1 com valor 5
 Sinais de Controle:
 - RegWrite = 1
 - ALUSrc = 1
 - ALUOp = 10
-```
 
-### 3. ADD (Adição)
-```
-Instrução: 002081b3
-Assembly: add x3, x1, x2
-Propósito: Soma os conteúdos de x1 e x2, armazena em x3
+### 2. ADDI 
+Instrução: `00C00113`
+Assembly: `addi x2, x0, 12`
+Propósito: Inicializa x2 com valor 12
 Sinais de Controle:
 - RegWrite = 1
-- ALUSrc = 0 (usa registrador)
-- ALUOp = 10 (operação tipo R)
-```
+- ALUSrc = 1
+- ALUOp = 10
 
-### 4. SW (Armazenar Palavra)
-```
-Instrução: 00302223
-Assembly: sw x3, 2(x0)
-Propósito: Armazena palavra de x3 na memória no endereço x0 + 2
+### 3. ADDI 
+Instrução: `00C00193`
+Assembly: `addi x3, x0, 12`
+Propósito: Inicializa x3 com valor 12
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 1
+- ALUOp = 10
+
+### 4. ADDI 
+Instrução: `FFC00F93`
+Assembly: `addi x31, x0, -4`
+Propósito: Inicializa x31 com valor -4
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 1
+- ALUOp = 10
+
+### 5. ADD (Adição)
+Instrução: `00208233`
+Assembly: `add x4, x1, x2`
+Propósito: Soma x1 e x2, armazena em x4
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 0
+- ALUOp = 10
+
+### 6. SUB (Subtração)
+Instrução: `402182B3`
+Assembly: `sub x5, x3, x2`
+Propósito: Subtrai x2 de x3, armazena em x5
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 0
+- ALUOp = 10
+
+### 7. LUI (Load Upper Immediate)
+Instrução: `00001337`
+Assembly: `lui x6, 1`
+Propósito: Carrega o valor 1 nos 20 bits mais significativos de x6
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 1
+- ALUOp = 00
+
+### 8. AND (E Lógico)
+Instrução: `00317393`
+Assembly: `and x7, x2, x3`
+Propósito: AND bit a bit entre x2 e x3, armazena em x7
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 0
+- ALUOp = 10
+
+### 9. SLT (Set Less Than)
+Instrução: `0020A433`
+Assembly: `slt x8, x1, x2`
+Propósito: Define x8 como 1 se x1 < x2, senão 0
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 0
+- ALUOp = 10
+
+### 10. OR (OU Lógico)
+Instrução: `0031E4B3`
+Assembly: `or x9, x1, x3`
+Propósito: OR bit a bit entre x1 e x3, armazena em x9
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 0
+- ALUOp = 10
+
+### 11. XOR (OU Exclusivo)
+Instrução: `0020C533`
+Assembly: `xor x10, x1, x2`
+Propósito: XOR bit a bit entre x1 e x2, armazena em x10
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 0
+- ALUOp = 10
+
+### 12. SLL (Shift Left Logical)
+Instrução: `00111593`
+Assembly: `sll x11, x2, x1`
+Propósito: Desloca x2 à esquerda por x1 posições, armazena em x11
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 0
+- ALUOp = 10
+
+### 13. SRL (Shift Right Logical)
+Instrução: `00115613`
+Assembly: `srl x12, x2, x1`
+Propósito: Desloca x2 à direita por x1 posições, armazena em x12
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 0
+- ALUOp = 10
+
+### 14. SRA (Shift Right Arithmetic)
+Instrução: `40115693`
+Assembly: `sra x13, x2, x1`
+Propósito: Desloca aritmético x2 à direita por x1 posições, armazena em x13
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 0
+- ALUOp = 10
+
+### 15. SLT (Set Less Than)
+Instrução: `0020A733`
+Assembly: `slt x14, x1, x2`
+Propósito: Define x14 como 1 se x1 < x2, senão 0
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 0
+- ALUOp = 10
+
+### 16. SLTU (Set Less Than Unsigned)
+Instrução: `0020B7B3`
+Assembly: `sltu x15, x1, x2`
+Propósito: Define x15 como 1 se x1 < x2 (unsigned), senão 0
+Sinais de Controle:
+- RegWrite = 1
+- ALUSrc = 0
+- ALUOp = 10
+
+### 17. SB (Store Byte)
+Instrução: `00100123`
+Assembly: `sb x1, 1(x0)`
+Propósito: Armazena byte menos significativo de x1 na memória no endereço x0 + 1
 Sinais de Controle:
 - MemWrite = 1
 - ALUSrc = 1
 - ALUOp = 00
 - is_mem_op = 1
-```
 
-### 5. LW (Carregar Palavra)
-```
-Instrução: 00102303
-Assembly: lw x6, 1(x0)
-Propósito: Carrega palavra da memória no endereço x0 + 1 para x6
+### 18. SB (Store Byte)
+Instrução: `00200223`
+Assembly: `sb x2, 2(x0)`
+Propósito: Armazena byte menos significativo de x2 na memória no endereço x0 + 2
+Sinais de Controle:
+- MemWrite = 1
+- ALUSrc = 1
+- ALUOp = 00
+- is_mem_op = 1
+
+### 19. SW (Store Word)
+Instrução: `00102223`
+Assembly: `sw x1, 3(x0)`
+Propósito: Armazena x1 na memória no endereço x0 + 3
+Sinais de Controle:
+- MemWrite = 1
+- ALUSrc = 1
+- ALUOp = 00
+- is_mem_op = 1
+
+### 20. SW (Store Word)
+Instrução: `00202423`
+Assembly: `sw x2, 4(x0)`
+Propósito: Armazena x2 na memória no endereço x0 + 4
+Sinais de Controle:
+- MemWrite = 1
+- ALUSrc = 1
+- ALUOp = 00
+- is_mem_op = 1
+
+### 21. LW (Load Word)
+Instrução: `00102823`
+Assembly: `lw x16, 1(x0)`
+Propósito: Carrega palavra da memória no endereço x0 + 1 para x16
 Sinais de Controle:
 - RegWrite = 1
 - MemRead = 1
@@ -61,80 +199,11 @@ Sinais de Controle:
 - ALUSrc = 1
 - ALUOp = 00
 - is_mem_op = 1
-```
 
-### 6. ADDI (Adicionar Imediato)
-```
-Instrução: 00800293
-Assembly: addi x5, x0, 8
-Propósito: Adiciona o imediato 8 ao valor de x0 (0) e armazena em x5
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 1
-- ALUOp = 10
-```
-
-### 7. AND (E Lógico)
-```
-Instrução: 0062f333
-Assembly: and x6, x5, x6
-Propósito: Realiza AND bit a bit entre x5 e x6, armazena em x6
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 0
-- ALUOp = 10
-```
-
-### 8. OR (OU Lógico)
-```
-Instrução: 0062e3b3
-Assembly: or x7, x5, x6
-Propósito: Realiza OR bit a bit entre x5 e x6, armazena em x7
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 0
-- ALUOp = 10
-```
-
-### 9. XOR (OU Exclusivo)
-```
-Instrução: 0063c433
-Assembly: xor x8, x7, x6
-Propósito: Realiza XOR bit a bit entre x7 e x6, armazena em x8
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 0
-- ALUOp = 10
-```
-
-### 10. SLTI (Set Less Than Immediate)
-```
-Instrução: 0032a513
-Assembly: slti x10, x5, 3
-Propósito: Define x10 como 1 se x5 < 3, senão define como 0
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 1
-- ALUOp = 10
-```
-
-### 11. SW (Armazenar Palavra)
-```
-Instrução: 00402223
-Assembly: sw x4, 4(x0)
-Propósito: Armazena palavra de x4 na memória no endereço x0 + 4
-Sinais de Controle:
-- MemWrite = 1
-- ALUSrc = 1
-- ALUOp = 00
-- is_mem_op = 1
-```
-
-### 12. LW (Carregar Palavra)
-```
-Instrução: 00008303
-Assembly: lw x6, 0(x1)
-Propósito: Carrega palavra da memória no endereço x1 + 0 para x6
+### 22. LB (Load Byte)
+Instrução: `00200883`
+Assembly: `lb x17, 2(x0)`
+Propósito: Carrega byte com extensão de sinal da memória no endereço x0 + 2 para x17
 Sinais de Controle:
 - RegWrite = 1
 - MemRead = 1
@@ -142,157 +211,11 @@ Sinais de Controle:
 - ALUSrc = 1
 - ALUOp = 00
 - is_mem_op = 1
-```
 
-### 13. SUB (Subtração)
-```
-Instrução: 40418133
-Assembly: sub x2, x3, x4
-Propósito: Subtrai x4 de x3 e armazena em x2
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 0
-- ALUOp = 10
-```
-
-### 14. SLT (Set Less Than)
-```
-Instrução: 0041a233
-Assembly: slt x4, x3, x4
-Propósito: Define x4 como 1 se x3 < x4, senão define como 0
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 0
-- ALUOp = 10
-```
-
-### 15. LUI (Load Upper Immediate)
-```
-Instrução: 000012b7
-Assembly: lui x5, 1
-Propósito: Carrega o imediato 1 nos 20 bits mais significativos de x5
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 1
-- ALUOp = 00
-```
-
-### 16. ADDI após LUI
-```
-Instrução: 01428293
-Assembly: addi x5, x5, 20
-Propósito: Adiciona 20 ao valor em x5
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 1
-- ALUOp = 10
-```
-
-### 17. AUIPC (Add Upper Immediate to PC)
-```
-Instrução: 00001337
-Assembly: auipc x6, 1
-Propósito: Soma o imediato 1 (deslocado) ao PC e armazena em x6
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 1
-- ALUOp = 00
-```
-
-### 18. ADDI após AUIPC
-```
-Instrução: 00830313
-Assembly: addi x6, x6, 8
-Propósito: Adiciona 8 ao valor em x6
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 1
-- ALUOp = 10
-```
-
-### 19. SLLI (Shift Left Logical Immediate)
-```
-Instrução: 00129293
-Assembly: slli x5, x5, 1
-Propósito: Desloca x5 1 bit para a esquerda
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 1
-- ALUOp = 10
-```
-
-### 20. SRLI (Shift Right Logical Immediate)
-```
-Instrução: 00235313
-Assembly: srli x6, x6, 2
-Propósito: Desloca x6 2 bits para a direita (lógico)
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 1
-- ALUOp = 10
-```
-
-### 21. SRAI (Shift Right Arithmetic Immediate)
-```
-Instrução: 00231393
-Assembly: srai x7, x6, 2
-Propósito: Desloca x6 2 bits para a direita (aritmético)
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 1
-- ALUOp = 10
-```
-
-### 22. SUB
-```
-Instrução: 402383b3
-Assembly: sub x7, x7, x2
-Propósito: Subtrai x2 de x7 e armazena em x7
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 0
-- ALUOp = 10
-```
-
-### 23. SRAI
-```
-Instrução: 00139413
-Assembly: srai x8, x7, 1
-Propósito: Desloca x7 1 bit para a direita (aritmético)
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 1
-- ALUOp = 10
-```
-
-### 24. SRLI
-```
-Instrução: 00235493
-Assembly: srli x9, x6, 2
-Propósito: Desloca x6 2 bits para a direita (lógico)
-Sinais de Controle:
-- RegWrite = 1
-- ALUSrc = 1
-- ALUOp = 10
-```
-
-### 25. SW
-```
-Instrução: 00502023
-Assembly: sw x5, 0(x0)
-Propósito: Armazena palavra de x5 na memória no endereço x0 + 0
-Sinais de Controle:
-- MemWrite = 1
-- ALUSrc = 1
-- ALUOp = 00
-- is_mem_op = 1
-```
-
-### 26. LW
-```
-Instrução: 00408503
-Assembly: lw x10, 4(x1)
-Propósito: Carrega palavra da memória no endereço x1 + 4 para x10
+### 23. LBU (Load Byte Unsigned)
+Instrução: `01F00903`
+Assembly: `lbu x18, 31(x0)`
+Propósito: Carrega byte sem extensão de sinal da memória no endereço x0 + 31 para x18
 Sinais de Controle:
 - RegWrite = 1
 - MemRead = 1
@@ -300,38 +223,47 @@ Sinais de Controle:
 - ALUSrc = 1
 - ALUOp = 00
 - is_mem_op = 1
-```
 
-### 27. BEQ (Branch if Equal)
-```
-Instrução: 00208263
-Assembly: beq x1, x2, 4
-Propósito: Desvia 4 instruções se x1 = x2
+### 24. BEQ (Branch if Equal)
+Instrução: `00218463`
+Assembly: `beq x2, x3, 8`
+Propósito: Salta 8 bits se x2 = x3
 Sinais de Controle:
 - Branch = 1
 - ALUSrc = 0
 - ALUOp = 01
-```
 
-### 28. JAL (Jump and Link)
-```
-Instrução: 0000006f
-Assembly: jal x0, 0
-Propósito: Salta para o endereço PC + 0
+### 25. NOP (No Operation)
+Instrução: `00000013`
+Assembly: `addi x0, x0, 0`
+Propósito: Não faz nada
+Sinais de Controle:
+- RegWrite = 0
+- ALUSrc = 1
+- ALUOp = 10
+
+### 26. BNE (Branch if Not Equal)
+Instrução: `00219463`
+Assembly: `bne x2, x3, 8`
+Propósito: Salta 8 bits se x2 ≠ x3
+Sinais de Controle:
+- Branch = 1
+- ALUSrc = 0
+- ALUOp = 01
+
+### 27. JAL (Jump and Link)
+Instrução: `00800973`
+Assembly: `jal x19, 8`
+Propósito: Salta 8 bits e salva PC+4 em x19
 Sinais de Controle:
 - RegWrite = 1
 - Jump = 1
-- ALUOp = 00
-```
 
-### 29. JALR (Jump and Link Register)
-```
-Instrução: 00008067
-Assembly: jalr x0, x1, 0
-Propósito: Salta para o endereço x1 + 0
+### 28. JALR (Jump and Link Register)
+Instrução: `000300A7`
+Assembly: `jalr x20, x3, 0`
+Propósito: Salta para endereço em x3 + 0 e salva PC+4 em x20
 Sinais de Controle:
 - RegWrite = 1
 - Jump = 1
 - ALUSrc = 1
-- ALUOp = 00
-```

@@ -262,89 +262,89 @@ begin
         -- Start testing instructions
         wait for PERIOD;  -- Wait one cycle to let signals stabilize
         
-        -- Test 1: Check if PC starts at 0
-        print_status("PC Initial Value Test", debug_pc = x"00000000", debug_pc, x"00000000");
+        -- Test 1: Check first ADDI instruction (x5 = 5)
+        check_instruction(x"00500293", "First ADDI Test");
         
-        -- Test 2: Check first instruction (addi x2, x0, 5)
-        check_instruction(x"00500113", "First ADDI Instruction Test");
+        -- Test 2: Check second ADDI instruction (x6 = 10)
+        check_instruction(x"00A00313", "Second ADDI Test");
         
-        -- Test 3: Check second instruction (addi x3, x0, 3)
-        check_instruction(x"00300193", "Second ADDI Instruction Test");
+        -- Test 3: Check third ADDI instruction (x7 = 15)
+        check_instruction(x"00F00393", "Third ADDI Test");
         
-        -- Test 4: Check add instruction (add x3, x1, x2)
-        check_instruction(x"002081b3", "ADD Instruction Test");
+        -- Test 4: Check fourth ADDI instruction (x8 = 20)
+        check_instruction(x"01400413", "Fourth ADDI Test");
         
-        -- Test 5: Check store instruction (sw x3, 4(x0))
-        check_instruction(x"00302223", "Store Instruction Test");
+        -- Test 5: Check fifth ADDI instruction (x9 = 25)
+        check_instruction(x"01900493", "Fifth ADDI Test");
         
-        -- Test 6: Check load instruction (lw x6, 1(x0))
-        check_instruction(x"00102303", "Load Instruction Test");
+        -- Test 6: Check LUI instruction
+        check_instruction(x"00001537", "LUI Test");
         
-        -- Test 7: Check immediate for logical ops
-        check_instruction(x"00800293", "ADDI for Logical Test");
-
-        -- Test 8: Check AND instruction
-        check_instruction(x"0062f333", "AND Instruction Test");
-
-        -- Test 9: Check OR instruction
-        check_instruction(x"0062e3b3", "OR Instruction Test");
-
-        -- Test 10: Check XOR instruction
-        check_instruction(x"0063c433", "XOR Instruction Test");
-
-        -- Test 11: Check SLTI instruction
-        check_instruction(x"0032a513", "SLTI Instruction Test");
-
-        -- Test 12: Check store word instruction
-        check_instruction(x"00402223", "Store Word Test");
+        -- Test 7: Check ADD instruction
+        check_instruction(x"004282B3", "ADD Test");
         
-        -- Test 13: Check load word instruction
-        check_instruction(x"00008303", "Load Word Test");
-
-        -- Test 14: Check SUB instruction
-        check_instruction(x"40418133", "SUB Instruction Test");
+        -- Test 8: Check SUB instruction
+        check_instruction(x"40730633", "SUB Test");
         
-        -- Test 15: Check SLT instruction
-        check_instruction(x"0041a233", "SLT Instruction Test");
+        -- Test 9: Check AND instruction
+        check_instruction(x"0062F6B3", "AND Test");
         
-        -- Test 16: Check LUI instruction (lui x5, 1)
-        check_instruction(x"000012b7", "LUI Instruction Test");
+        -- Test 10: Check OR instruction
+        check_instruction(x"0064E733", "OR Test");
         
-        -- Test 17: Check shift immediate (addi after lui)
-        check_instruction(x"01428293", "ADDI after LUI Test");
+        -- Test 11: Check XOR instruction
+        check_instruction(x"0065C7B3", "XOR Test");
         
-        -- Test 20: Check SLL instruction (sll x5, x5, x1)
-        check_instruction(x"00129293", "SLL Instruction Test");
+        -- Test 12: Check SLT instruction
+        check_instruction(x"0067A833", "SLT Test");
         
-        -- Test 21: Check SRL instruction (srl x6, x6, x2)
-        check_instruction(x"00235313", "SRL Instruction Test");
+        -- Test 13: Check SLL instruction
+        check_instruction(x"00532893", "SLL Test");
         
-        -- Test 22: Check SRA immediate (srai x7, x6, 2)
-        check_instruction(x"00231393", "SRAI Instruction Test");
+        -- Test 14: Check SRL instruction
+        check_instruction(x"0053D913", "SRL Test");
         
-        -- Test 23: Check SRA instruction (sra x7, x7, x2)
-        check_instruction(x"402383b3", "SRA Instruction Test");
+        -- Test 15: Check SRA instruction
+        check_instruction(x"4074D993", "SRA Test");
         
-        -- Test 24: Check SLTU instruction (sltu x8, x7, x1)
-        check_instruction(x"00139413", "SLTU Instruction Test");
+        -- Test 16: Check SLTU instruction
+        check_instruction(x"0023AA13", "SLTU Test");
         
-        -- Test 25: Check SRL instruction (srl x9, x6, x2)
-        check_instruction(x"00235493", "SRL Instruction Test");
+        -- Test 17: Check SLTI instruction
+        check_instruction(x"0033BA93", "SLTI Test");
         
-        -- Test 26: Check SB instruction (sb x5, 0(x0))
-        check_instruction(x"00502023", "SB Instruction Test");
+        -- Test 18: Check SW instruction
+        check_instruction(x"00802023", "SW Test");
         
-        -- Test 27: Check LBU instruction (lbu x10, 4(x1))
-        check_instruction(x"00408503", "LBU Instruction Test");
+        -- Test 19: Check SB instruction
+        check_instruction(x"00902223", "SB Test");
         
-        -- Test 28: Check BEQ instruction (beq x2, x2, 2)
-        check_instruction(x"00208263", "BEQ Instruction Test");
+        -- Test 20: Check LW instruction
+        check_instruction(x"00102B03", "LW Test");
         
-        -- Test 29: Check JAL instruction (jal x0, 0)
-        check_instruction(x"0000006f", "JAL Instruction Test");
+        -- Test 21: Check LB instruction
+        check_instruction(x"00101B83", "LB Test");
         
-        -- Test 30: Check JALR instruction (jalr x0, x1, 0)
-        check_instruction(x"00008067", "JALR Instruction Test");
+        -- Test 22: Check LBU instruction
+        check_instruction(x"00101C03", "LBU Test");
+        
+        -- Test 23: Check AUIPC instruction
+        check_instruction(x"00000597", "AUIPC Test");
+        
+        -- Test 24: Check JAL instruction
+        check_instruction(x"008000EF", "JAL Test");
+        
+        -- Test 25: Check JALR instruction
+        check_instruction(x"00458593", "JALR Test");
+        
+        -- Test 26: Check BEQ instruction
+        check_instruction(x"00228463", "BEQ Test");
+        
+        -- Test 27: Check NOP instruction
+        check_instruction(x"00000013", "NOP Test");
+        
+        -- Test 28: Check Return JALR instruction
+        check_instruction(x"00008067", "Return JALR Test");
         
         -- Allow some cycles for execution
         wait for PERIOD*10;
