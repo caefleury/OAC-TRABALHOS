@@ -1,0 +1,378 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+\usepackage[brazil,american]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{todonotes}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{hyperref}
+     
+\sloppy
+
+\title{Projeto Final \\ 
+Processador RISC-V Uniciclo}
+
+\author{Caetano Korilo Fleury de Amorim\\
+        212006737
+}
+
+\address{Departamento de Ciência da Computação -- Universidade de Brasília (UnB)\\
+  \email{212006737@aluno.unb.br}
+}
+
+\begin{document} 
+\maketitle
+
+\selectlanguage{american}
+\begin{abstract}
+This report details the implementation of a single-cycle RISC-V processor developed as the final project for the Computer Organization and Architecture course. The processor implements the RV32I instruction set, featuring a complete datapath with arithmetic-logic unit, register bank, immediate generator, and control unit. The implementation was done in VHDL and verified through comprehensive testing.
+\end{abstract}
+
+\selectlanguage{brazil}     
+\begin{resumo} 
+Este relatório detalha a implementação de um processador RISC-V uniciclo desenvolvido como projeto final da disciplina de Organização e Arquitetura de Computadores. O processador implementa o conjunto de instruções RV32I, apresentando um datapath completo com unidade lógico-aritmética, banco de registradores, gerador de imediatos e unidade de controle. A implementação foi feita em VHDL e verificada através de testes abrangentes.
+\end{resumo}
+
+\section{Introdução}
+Este trabalho apresenta o desenvolvimento de um processador RISC-V completo como projeto final da disciplina de Organização e Arquitetura de Computadores. O processador implementa o conjunto de instruções RV32I, que é o conjunto base de instruções de 32 bits do RISC-V, incluindo operações aritméticas, lógicas, de transferência de dados e de controle de fluxo. O desenvolvimento foi realizado em VHDL, uma linguagem de descrição de hardware que permite a especificação precisa do comportamento e da estrutura do processador em nível de registradores.
+
+O projeto foi desenvolvido de forma incremental, começando com a implementação individual dos componentes básicos como a ULA, banco de registradores e gerador de imediatos, que foram testados e validados separadamente. Após a validação dos módulos individuais, foi realizada a integração destes componentes para formar o processador completo, seguindo a arquitetura uniciclo. Para verificar o funcionamento correto do processador, foi desenvolvido um conjunto abrangente de testes utilizando o ModelSim, que permitiu a simulação e depuração do hardware.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{PROJETO_FINAL_OAC/assets/diagrama-riscv.png}
+    \caption{Diagrama RISC-V Uniciclo.}
+    \label{fig:memoria_instrucoes}
+\end{figure}
+
+\section{Arquitetura do Processador}
+O projeto consiste na implementação de um processador RISC-V uniciclo em VHDL, capaz de executar instruções do conjunto RV32I. Em um processador uniciclo, cada instrução é executada completamente em um único ciclo de clock, o que significa que todas as etapas do processamento (busca da instrução, decodificação, execução, acesso à memória e escrita de resultado) devem ser completadas antes do próximo ciclo começar. 
+
+Esta abordagem, embora mais simples de implementar e entender, requer que o ciclo de clock seja longo o suficiente para acomodar a instrução mais lenta, o que limita o desempenho geral do processador. No entanto, ela oferece uma excelente plataforma didática para compreender os fundamentos da arquitetura de computadores, pois cada instrução é atômica e independente, facilitando o debug e a visualização do funcionamento do processador.
+
+O processador foi desenvolvido de forma modular, com cada componente sendo implementado e testado separadamente antes da integração final. Esta abordagem modular não apenas facilitou o desenvolvimento e a depuração, mas também permite futuras extensões e modificações do processador, como a possível adição de novos conjuntos de instruções ou otimizações de performance.
+
+
+
+\subsection{Unidade de Controle}
+A unidade de controle é responsável por decodificar as instruções e gerar todos os sinais de controle necessários para a execução correta de cada tipo de instrução. Ela analisa o opcode, funct3 e funct7 da instrução para determinar os sinais apropriados. Os principais sinais de controle incluem:
+
+\begin{itemize}
+    \item \textbf{Branch}: Ativo para instruções de desvio condicional (BEQ, BNE, etc.)
+    \item \textbf{MemRead/MemWrite}: Controlam operações de acesso à memória
+    \item \textbf{MemtoReg}: Seleciona entre o resultado da ULA e o dado lido da memória
+    \item \textbf{ALUOp}: Define a operação a ser realizada pela ULA
+    \begin{itemize}
+        \item 00: Operações de passagem direta ou soma (LUI, AUIPC)
+        \item 10: Operações tipo R (ADD, SUB, AND, etc.)
+        \item 11: Operações tipo I (ADDI, ANDI, etc.)
+    \end{itemize}
+    \item \textbf{ALUSrc}: Seleciona entre registrador e imediato como segundo operando da ULA
+    \item \textbf{RegWrite}: Habilita escrita no banco de registradores
+\end{itemize}
+
+A unidade também gera sinais específicos para instruções especiais:
+\begin{itemize}
+    \item \textbf{is\_auipc}: Identifica a instrução AUIPC (Add Upper Immediate to PC)
+    \item \textbf{is\_lui}: Identifica a instrução LUI (Load Upper Immediate)
+    \item \textbf{jump}: Ativo para instruções de salto incondicional (JAL, JALR)
+    \item \textbf{is\_mem\_op}: Indica operações de acesso à memória (LW, SW, etc.)
+\end{itemize}
+
+\subsection{Banco de Registradores}
+O banco de registradores (XREGS) é um componente fundamental que implementa os 32 registradores de propósito geral do RISC-V, cada um com 32 bits. Suas principais características incluem:
+
+\begin{itemize}
+    \item \textbf{Portas de Acesso}:
+    \begin{itemize}
+        \item Duas portas de leitura assíncronas (rs1 e rs2)
+        \item Uma porta de escrita síncrona (rd)
+    \end{itemize}
+    
+    \item \textbf{Debug}:
+    \begin{itemize}
+        \item Implementa função de conversão para hexadecimal
+        \item Gera relatórios automáticos após cada escrita em registrador
+        \item Facilita a verificação do estado dos registradores durante a simulação
+    \end{itemize}
+\end{itemize}
+
+\subsection{Unidade Lógica e Aritmética (ULA)}
+A ULA é responsável por realizar todas as operações aritméticas e lógicas do processador. Suas principais características incluem:
+
+\begin{itemize}
+    \item \textbf{Operações Suportadas}:
+    \begin{itemize}
+        \item Aritméticas: ADD (0000), SUB (0001)
+        \item Lógicas: AND (0010), OR (0011), XOR (0100)
+        \item Deslocamento: SLL (0101), SRL (0110), SRA (0111)
+        \item Comparação: SLT (1000), SLTU (1001)
+    \end{itemize}
+    \item \textbf{Entradas}:
+    \begin{itemize}
+        \item Opcode de 4 bits para seleção da operação
+        \item Operando A: rs1\_data do banco de registradores
+        \item Operando B: selecionado entre rs2\_data ou imediato pelo ALUSrc MUX
+        \item Sinal is\_mem\_op para operações de memória
+    \end{itemize}
+    \item \textbf{Saídas}:
+    \begin{itemize}
+        \item Resultado de 32 bits usado para:
+        \begin{itemize}
+            \item Escrita no banco de registradores
+            \item Endereçamento de memória (load/store)
+            \item Cálculo de desvios condicionais
+        \end{itemize}
+        \item Flag de zero para instruções de desvio
+    \end{itemize}
+\end{itemize}
+
+\subsection{Controle da ULA}
+O controle da ULA determina qual operação será executada com base nos sinais da unidade de controle principal e campos da instrução:
+
+\begin{itemize}
+    \item \textbf{Entradas de Controle}:
+    \begin{itemize}
+        \item aluop: determina o tipo de instrução
+        \begin{itemize}
+            \item "00": Load/Store/AUIPC (sempre ADD)
+            \item "01": Branch (sempre SUB para comparação)
+            \item "10": Tipo R (operação baseada em funct3/funct7)
+        \end{itemize}
+        \item funct3: especifica a operação exata dentro do tipo
+        \item funct7: diferencia entre operações similares (ex: ADD/SUB)
+    \end{itemize}
+    \item \textbf{Saídas}:
+    \begin{itemize}
+        \item alu\_operation: código da operação para a ULA
+        \item is\_mem\_op: indica operação de memória para tratamento especial
+    \end{itemize}
+    \item \textbf{Decodificação de Instruções}:
+    \begin{itemize}
+        \item Instruções tipo R: decodifica funct3/funct7 para operação específica
+        \item Load/Store: configura para adição (cálculo de endereço)
+        \item Branch: configura para subtração (comparação)
+    \end{itemize}
+\end{itemize}
+
+\subsection{Gerador de Imediatos}
+Gera valores imediatos de 32 bits a partir dos campos da instrução, suportando os formatos:
+\begin{itemize}
+    \item Tipo R: Instruções registro-registro
+    \item Tipo I: Instruções com imediato curto
+    \item Tipo S: Instruções de store
+    \item Tipo SB: Instruções de branch
+    \item Tipo U: Instruções com imediato longo
+    \item Tipo UJ: Instruções de jump
+\end{itemize}
+
+\subsection{Memória de Dados}
+A memória de dados é uma RAM que armazena os dados do programa durante a execução. Suas principais características são:
+
+\begin{itemize}
+    \item \textbf{Capacidade}: 1024 bytes (256 words)
+    \item \textbf{Operações Suportadas}:
+    \begin{itemize}
+        \item Leitura e escrita de bytes (LB, SB)
+        \item Leitura e escrita de half-words
+        \item Leitura e escrita de words (LW, SW)
+    \end{itemize}
+    \item \textbf{Características}:
+    \begin{itemize}
+        \item Inicialização via arquivo de memória
+        \item Acesso síncrono para escrita
+        \item Acesso assíncrono para leitura
+        \item Endereçamento byte a byte
+    \end{itemize}
+    \item \textbf{Interface}:
+    \begin{itemize}
+        \item Endereço de acesso
+        \item Sinal de habilitação de escrita
+        \item Seletor do tipo de acesso (funct3)
+        \item Barramento de dados de entrada e saída
+    \end{itemize}
+\end{itemize}
+
+\subsection{Multiplexador 2:1}
+O multiplexador 2:1 é um componente fundamental para a seleção de dados no datapath do processador. Suas características são:
+
+\begin{itemize}
+    \item \textbf{Funcionalidade}: Seleciona entre duas entradas de dados baseado em um sinal de controle
+    \item \textbf{Interface}:
+    \begin{itemize}
+        \item Sinal de seleção de 1 bit
+        \item Duas entradas de dados de 32 bits
+        \item Uma saída de dados de 32 bits
+    \end{itemize}
+    \item \textbf{Comportamento}:
+    \begin{itemize}
+        \item Quando sel = '0': seleciona entrada\_0
+        \item Quando sel = '1': seleciona entrada\_1
+    \end{itemize}
+    \item \textbf{Usos no Processador}:
+    \begin{itemize}
+        \item \textbf{ALUSrc MUX}: Seleciona entre o valor do registrador rs2 ou o imediato como segundo operando da ULA
+        \item \textbf{MemToReg MUX}: Escolhe entre o resultado da ULA ou dado lido da memória para escrita no banco de registradores
+        \item \textbf{Branch MUX}: Seleciona entre PC+4 ou endereço de desvio para o próximo PC
+        \item \textbf{AUIPC MUX}: Seleciona entre o resultado da ULA normal ou soma com PC para instruções AUIPC
+    \end{itemize}
+\end{itemize}
+
+\subsection{Somador}
+O somador é um componente simples mas essencial que realiza adições no processador. Suas características são:
+
+\begin{itemize}
+    \item \textbf{Funcionalidade}: Realiza a soma de dois números de 32 bits sem sinal
+    \item \textbf{Interface}:
+    \begin{itemize}
+        \item Duas entradas de 32 bits (entrada\_a e entrada\_b)
+        \item Uma saída de 32 bits com o resultado da soma
+    \end{itemize}
+    \item \textbf{Aplicações}:
+    \begin{itemize}
+        \item Cálculo de endereços para desvios
+        \item Incremento do contador de programa
+        \item Operações aritméticas básicas
+    \end{itemize}
+\end{itemize}
+
+\subsection{Somador do PC}
+O somador do PC (Program Counter) é um componente especializado responsável por calcular o próximo endereço de instrução. Suas características incluem:
+
+\begin{itemize}
+    \item \textbf{Funcionalidade}:
+    \begin{itemize}
+        \item Incremento normal do PC (PC + 4)
+        \item Cálculo de endereço para desvios e saltos (PC + offset)
+        \item Suporte a reset síncrono
+    \end{itemize}
+    \item \textbf{Interface}:
+    \begin{itemize}
+        \item entrada: PC atual
+        \item offset: deslocamento para desvios/saltos
+        \item sel: seletor do tipo de incremento (0: PC+4, 1: PC+offset)
+        \item rst: sinal de reset
+        \item saida: próximo valor do PC
+    \end{itemize}
+    \item \textbf{Comportamento}:
+    \begin{itemize}
+        \item Em reset: zera o contador de programa
+        \item Em operação normal: incrementa PC de 4 em 4 bytes
+        \item Em desvios/saltos: soma o offset ao PC atual
+    \end{itemize}
+\end{itemize}
+
+\subsection{Memória de Instruções}
+A memória de instruções é uma ROM que armazena o programa a ser executado. Suas características principais são:
+
+\begin{itemize}
+    \item \textbf{Organização}:
+    \begin{itemize}
+        \item Memória do tipo ROM (somente leitura)
+        \item Capacidade de 1024 bytes (256 instruções)
+        \item Palavras de 32 bits (uma instrução por palavra)
+    \end{itemize}
+    \item \textbf{Características}:
+    \begin{itemize}
+        \item Inicialização via arquivo hexadecimal
+        \item Acesso assíncrono para leitura
+        \item Endereçamento por palavra (incrementos de 4 bytes)
+        \item Preenchimento automático com zeros para posições não inicializadas
+    \end{itemize}
+    \item \textbf{Interface}:
+    \begin{itemize}
+        \item addr: endereço da instrução a ser lida
+        \item data: instrução lida (32 bits)
+    \end{itemize}
+\end{itemize}
+
+\section{Implementação}
+O processador foi implementado em VHDL, seguindo as melhores práticas de projeto digital:
+
+\subsection{Conjunto de Instruções}
+O processador implementa um subconjunto significativo das instruções do RV32I:
+
+\begin{itemize}
+    \item \textbf{Geração de constantes}: LUI
+    \item \textbf{Aritméticas}: ADD, SUB, ADDI
+    \item \textbf{Lógicas}: AND, OR, XOR
+    \item \textbf{Deslocamento}: SLL, SRL, SRA
+    \item \textbf{Comparação}: SLT, SLTU
+    \item \textbf{Memória}: LW, LB, LBU, SW, SB
+    \item \textbf{Controle de Fluxo}: JAL, JALR, BEQ, BNE
+\end{itemize}
+
+\subsection{Datapath}
+O datapath implementa o fluxo de dados entre os componentes, incluindo:
+\begin{itemize}
+    \item PC e lógica de atualização (implementado diretamente no design.vhd)
+    \item Memória de instruções e dados
+    \item Multiplexadores para seleção de dados
+    \item Lógica de controle de desvios
+\end{itemize}
+
+\subsection{Memória}
+O sistema de memória inclui:
+\begin{itemize}
+    \item Memória de instruções
+    \item Memória de dados: 12 bits de endereçamento (4KB de memória)
+    \item Suporte a operações de load/store byte e word
+\end{itemize}
+
+\section{Resultados da Simulação}
+Esta seção apresenta os resultados obtidos através da simulação no ModelSim, demonstrando o funcionamento dos principais componentes do processador.
+
+\subsection{Execução de Instrução}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{PROJETO_FINAL_OAC/assets/modelsim_exemplo_instrucao.png}
+    \caption{Simulação da primeira instrução do testbench no ModelSim, mostrando os sinais e estados do processador durante a execução.}
+    \label{fig:exemplo_instrucao}
+\end{figure}
+
+Alguns valores por mais que não sejam utilizados pela instrução em si estão presentes mas são desconsiderados na instrução em si. O que dita as entradas e saídas utilizadas é a unidade de controle do processador.
+
+\subsection{Estado do Banco de Registradores}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{PROJETO_FINAL_OAC/assets/modelsim_banco_de_regs.png}
+    \caption{Estado final do banco de registradores após a execução do programa de teste, mostrando os valores armazenados em cada registrador.}
+    \label{fig:banco_regs}
+\end{figure}
+
+\subsection{Memória de Dados}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{PROJETO_FINAL_OAC/assets/modelsim_memoria_dados.png}
+    \caption{Conteúdo da memória de dados após a execução do programa, mostrando os valores armazenados em cada posição de memória.}
+    \label{fig:memoria_dados}
+\end{figure}
+
+\subsection{Memória de Instruções}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{PROJETO_FINAL_OAC/assets/moidelsim_memoria_instrucoes.png}
+    \caption{Conteúdo da memória de instruções, mostrando o programa que foi executado pelo processador.}
+    \label{fig:memoria_instrucoes}
+\end{figure}
+
+\section{Verificação e Testes}
+O processador foi verificado através de:
+
+\begin{itemize}
+    \item Execução correta de cada tipo de instrução
+    \item Integração entre componentes
+    \item Sinais de debug para monitoramento
+\end{itemize}
+
+\section{Conclusão}
+O projeto resultou em um processador RISC-V uniciclo funcional, capaz de executar o conjunto de instruções RV32I. A implementação modular e os testes abrangentes garantiram a corretude do sistema. O processador serve como uma base sólida para futuras extensões e otimizações.
+
+
+\end{document}

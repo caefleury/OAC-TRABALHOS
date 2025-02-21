@@ -1,0 +1,1539 @@
+run -all
+# ** Note: Register x1 = 0x00000005
+#    Time: 40 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: ----------------------------------------
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Carrega x1 com 5
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00500093
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000000
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000005
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000000
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000004
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000005
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000003
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução I-type detectada
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x1
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 5
+#    Time: 60 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x1 = 0x00000005
+#    Time: 60 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Carrega x1 com 5
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Carrega x2 com 12
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00C00113
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000000
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x0000000C
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000004
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000008
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x0000000C
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000000
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução I-type detectada
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x2
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 12
+#    Time: 61 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x2 = 0x0000000C
+#    Time: 80 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Carrega x2 com 12
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Carrega x3 com 12
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00C00193
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000000
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x0000000C
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000008
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x0000000C
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x0000000C
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000000
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução I-type detectada
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x3
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 12
+#    Time: 81 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x3 = 0x0000000C
+#    Time: 100 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Carrega x3 com 12
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Carrega x31 com -4
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0xFFC00F93
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000000
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0xFFFFFFFC
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x0000000C
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000010
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0xFFFFFFFC
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000000
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução I-type detectada
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x31
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: -4
+#    Time: 101 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x31 = 0xFFFFFFFC
+#    Time: 120 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Carrega x31 com -4
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Soma x4 = x2 + x0
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00208233
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000005
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000000
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000010
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000014
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000011
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000000
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução R-type detectada
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x4
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x1
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x2
+#    Time: 121 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x4 = 0x00000011
+#    Time: 140 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Soma x4 = x2 + x0
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Subtração x5 = x3 - x2
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x402182B3
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x0000000C
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000000
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000014
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000018
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000000
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x0000000C
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução R-type detectada
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x5
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x3
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x2
+#    Time: 141 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x5 = 0x00000000
+#    Time: 160 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Subtração x5 = x3 - x2
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Carrega imediato superior x6 = 1
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00001337
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 0
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000000
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00001000
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000018
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x0000001C
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00001000
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x0000000C
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução LUI detectada
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x6
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 0x00001000
+#    Time: 161 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x6 = 0x00001000
+#    Time: 180 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Carrega imediato superior x6 = 1
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: AND x7 = x2 & x3
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x003173B3
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x0000000C
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000000
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x0000001C
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000020
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x0000000C
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000000
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução R-type detectada
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x7
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x2
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x3
+#    Time: 181 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x7 = 0x0000000C
+#    Time: 200 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: AND x7 = x2 & x3
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: OR x8 = x2 | x0
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x0020A433
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000005
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000000
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000020
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000024
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000001
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x000000FF
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução R-type detectada
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x8
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x1
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x2
+#    Time: 201 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x8 = 0x00000001
+#    Time: 220 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: OR x8 = x2 | x0
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: XOR x9 = x3 ^ x0
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x0031E4B3
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x0000000C
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000000
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000024
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000028
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x0000000C
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000000
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução R-type detectada
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x9
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x3
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x3
+#    Time: 221 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x9 = 0x0000000C
+#    Time: 240 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: XOR x9 = x3 ^ x0
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Deslocamento à esquerda x10 = x2 << x0
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x0020C533
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000005
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000000
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000028
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x0000002C
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000009
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000000
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução R-type detectada
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x10
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x1
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x2
+#    Time: 241 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x10 = 0x00000009
+#    Time: 260 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Deslocamento à esquerda x10 = x2 << x0
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Deslocamento à direita x11 = x2 >> 1
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00111593
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x0000000C
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000005
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000001
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x0000002C
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000030
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000018
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000000
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução I-type detectada
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x11
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x2
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 1
+#    Time: 261 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x11 = 0x00000018
+#    Time: 280 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Deslocamento à direita x11 = x2 >> 1
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Deslocamento à esquerda x12 = x2 << 1
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00115613
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x0000000C
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000005
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000001
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000030
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000034
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000006
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0xFFFFFFFF
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução I-type detectada
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x12
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x2
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 1
+#    Time: 281 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x12 = 0x00000006
+#    Time: 300 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Deslocamento à esquerda x12 = x2 << 1
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Deslocamento aritmético à direita x13 = x2 >> 1
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x40115693
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x0000000C
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000005
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000401
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000034
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000038
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000006
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0xFFFFFFFF
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução I-type detectada
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x13
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x2
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 1025
+#    Time: 301 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x13 = 0x00000006
+#    Time: 320 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Deslocamento aritmético à direita x13 = x2 >> 1
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Comparação menor que x14 = (x2 < x0)
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x0020A733
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000005
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000000
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000038
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x0000003C
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000001
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x000000FF
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução R-type detectada
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x14
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x1
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x2
+#    Time: 321 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x14 = 0x00000001
+#    Time: 340 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Comparação menor que x14 = (x2 < x0)
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Comparação menor que sem sinal x15 = (x2 < x0)
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x0020B7B3
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 2
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000005
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000000
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x0000003C
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000040
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000001
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x000000FF
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução R-type detectada
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x15
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x1
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x2
+#    Time: 341 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x15 = 0x00000001
+#    Time: 360 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Comparação menor que sem sinal x15 = (x2 < x0)
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Armazena palavra mem[1] = x2
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00100123
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 0
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '1'
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '0'
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000005
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000002
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000040
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000044
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000002
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x0000000A
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução S-type detectada
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x1
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 2
+#    Time: 361 ns  Iteration: 0  Instance: /testbench
+# ** Note: Teste concluído: Armazena palavra mem[1] = x2
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Armazena palavra mem[2] = x2
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00200223
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 0
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '1'
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '0'
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000004
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000044
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000048
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000004
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x0000001E
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução S-type detectada
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x2
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 4
+#    Time: 381 ns  Iteration: 0  Instance: /testbench
+# ** Note: Teste concluído: Armazena palavra mem[2] = x2
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Carrega palavra x4 = mem[2]
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00102223
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 0
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '1'
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '0'
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000005
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000004
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000048
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x0000004C
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000004
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x0000000C
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução S-type detectada
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x1
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 4
+#    Time: 401 ns  Iteration: 0  Instance: /testbench
+# ** Note: Teste concluído: Carrega palavra x4 = mem[2]
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Armazena palavra mem[4] = x2
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00202423
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 0
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '1'
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '0'
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000008
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x0000004C
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000050
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000008
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000000
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução S-type detectada
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x2
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 8
+#    Time: 421 ns  Iteration: 0  Instance: /testbench
+# ** Note: Teste concluído: Armazena palavra mem[4] = x2
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Carrega palavra x16 = mem[8]
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00102823
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 0
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '1'
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '0'
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000005
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000010
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000050
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000054
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000010
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000000
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução S-type detectada
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x1
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 16
+#    Time: 441 ns  Iteration: 0  Instance: /testbench
+# ** Note: Teste concluído: Carrega palavra x16 = mem[8]
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Carrega palavra x17 = mem[2]
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00200883
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '1'
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '1'
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 0
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000002
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000054
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000058
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000002
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000005
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''1''
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução I-type detectada
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x17
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 2
+#    Time: 461 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x17 = 0x00000005
+#    Time: 480 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Carrega palavra x17 = mem[2]
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Carrega x18 com 31
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x01F00903
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '1'
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '1'
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 0
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '1'
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '1'
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0xFFFFFFFC
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x0000001F
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000058
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x0000005C
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x0000001F
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x00000000
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''1''
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução I-type detectada
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x18
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 31
+#    Time: 481 ns  Iteration: 0  Instance: /testbench
+# ** Note: Register x18 = 0x00000000
+#    Time: 500 ns  Iteration: 1  Instance: /testbench/UUT/regs
+# ** Note: Teste concluído: Carrega x18 com 31
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Desvio se igual x3,x2,8
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00218463
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '1'
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 1
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '0'
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x0000000C
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000008
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x0000005C
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000064
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000000
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x0000000C
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução B-type detectada
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x3
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x2
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 8
+#    Time: 501 ns  Iteration: 0  Instance: /testbench
+# ** Note: Teste concluído: Desvio se igual x3,x2,8
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Nenhuma operação
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00000013
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '1'
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 1
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '0'
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x0000000C
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x0000000C
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000008
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000064
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x0000006C
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000000
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x0000000C
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução I-type detectada
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rd: x0
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x0
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 0
+#    Time: 521 ns  Iteration: 0  Instance: /testbench
+# ** Note: Teste concluído: Nenhuma operação
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Desvio se diferente x3,x2,8
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00219463
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 0
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '0'
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00001000
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000000
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000000
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x0000006C
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000070
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00001000
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x0000000C
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução B-type detectada
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1: x3
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2: x2
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note:   imediato: 8
+#    Time: 541 ns  Iteration: 0  Instance: /testbench
+# ** Note: Teste concluído: Desvio se diferente x3,x2,8
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Salto e liga x19,8
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x00800973
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 0
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '0'
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000000
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000000
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000070
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000074
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000000
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x0000000C
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: Tipo de instrução desconhecido: 00800973
+#    Time: 561 ns  Iteration: 0  Instance: /testbench
+# ** Note: Teste concluído: Salto e liga x19,8
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: Iniciando teste: Salto e liga registrador x20,x6,0
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: Instrução: 0x000300A7
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: Sinais de controle:
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Branch: '0'
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemRead: '0'
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemToReg: '0'
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUOp: 0
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note:   MemWrite: '0'
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note:   ALUSrc: '0'
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note:   RegWrite: '0'
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Jump: '0'
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valores de registrador:
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs1 data: 0x00000000
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note:   rs2 data: 0x00000000
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note:   Valor imediato: 0x00000000
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: PC: 0x00000074
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: Próximo PC: 0x00000078
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: Resultado da ULA: 0x00000000
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: Dado lido da memória: 0x0000000C
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: Valor de MemToReg: ''0''
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: Tipo de instrução desconhecido: 000300A7
+#    Time: 581 ns  Iteration: 0  Instance: /testbench
+# ** Note: Teste concluído: Salto e liga registrador x20,x6,0
+#    Time: 601 ns  Iteration: 0  Instance: /testbench
+# ** Note: ----------------------------------------
+#    Time: 601 ns  Iteration: 0  Instance: /testbench
+# ** Note: Todos os testes passaram
+#    Time: 841 ns  Iteration: 0  Instance: /testbench
